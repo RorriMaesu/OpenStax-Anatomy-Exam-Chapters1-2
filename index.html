@@ -364,20 +364,87 @@ function reviewHTML(details,all){
     </div>`;
   }).join("");
 }
+// Explanations are keyed to original answer text, never shuffled letters.
+const TARGETED_NOTES = {
+  35: {
+    explanation: "Movement includes more than actions you choose to make. Walking moves the whole body; the heart beating and the intestines pushing food move organs; a white blood cell traveling through tissue is cellular movement. Organ and cell movement can happen without conscious control, so limiting movement to voluntary motion, walking, or skeletal movement leaves out part of the definition.",
+    mnemonic: "Body, organs, cells—all three can move.",
+    check: "Does the heartbeat count as movement even though you do not consciously control each beat?",
+    answer: "Yes. It is involuntary movement of an organ."
+  },
+  138: {
+    choices: {
+      "The first shell can hold two electrons.": {
+        explanation: "The first electron shell has a maximum capacity of two electrons. A first shell containing two is full; it does not need eight. Neutral helium has two electrons in its only shell, so its outermost occupied shell is full with two. The octet pattern does not apply to the first shell.",
+        mnemonic: "First shell: full at two.",
+        check: "A helium atom has two electrons in its only shell. Is that shell full, or does it need six more?",
+        answer: "It is full. The first shell can hold at most two electrons."
+      },
+      "The valence shell is the outermost occupied shell.": {
+        explanation: "Find the farthest shell from the nucleus that actually contains electrons. That is the valence shell. An empty shell farther out does not count. When magnesium loses the two electrons in its third shell, its occupied second shell becomes the valence shell.",
+        mnemonic: "Valence = outermost occupied.",
+        check: "After magnesium changes from 2 | 8 | 2 to 2 | 8, which shell is the valence shell?",
+        answer: "The second shell, because it is now the outermost shell containing electrons."
+      },
+      "Many atoms are especially stable with eight valence electrons.": {
+        explanation: "The octet rule describes a common stable arrangement of eight valence electrons for many atoms in this chapter's simplified model. It is a pattern, not a rule that every shell needs eight: the first shell is full at two.",
+        mnemonic: "Often eight; first shell two.",
+        check: "Does the octet rule mean the first shell needs eight electrons?",
+        answer: "No. The first shell is full at two; the octet is a common pattern for many other atoms."
+      },
+      "Every atom currently has eight valence electrons.": {
+        explanation: "A stable arrangement is not the same as an atom's starting arrangement. Neutral magnesium is 2 | 8 | 2, so it starts with two valence electrons, not eight. This is why the statement that every atom currently has eight is false.",
+        mnemonic: "A stable goal is not a starting count.",
+        check: "How many valence electrons does neutral magnesium have in 2 | 8 | 2?",
+        answer: "Two, in its third shell."
+      },
+      "Atoms may gain, lose, or share electrons to reach a more stable arrangement.": {
+        explanation: "Atoms can reach more stable electron arrangements by gaining or losing electrons to form ions, or by sharing electrons in covalent bonds. Losing negative electrons makes an ion more positive; gaining them makes it more negative.",
+        mnemonic: "Gain, lose, or share.",
+        check: "Must atoms always gain electrons to become more stable?",
+        answer: "No. They may gain, lose, or share electrons, depending on the atom and the interaction."
+      }
+    }
+  }
+};
+function escapeNote(value){return String(value).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+function personalizedNotes(){
+  if(!lastResults)return [];
+  return lastResults.details.filter(d=>!d.strict).map(d=>{
+    const q=d.q, selected=new Set(d.user), correct=new Set(q.answer);
+    const omitted=q.answer.filter(i=>!selected.has(i)).map(i=>q.options[i]);
+    const incorrect=d.user.filter(i=>!correct.has(i)).map(i=>q.options[i]);
+    const custom=TARGETED_NOTES[q.id];
+    const focus=[...omitted,...incorrect];
+    const lessons=custom?.choices ? focus.map(text=>custom.choices[text]).filter(Boolean) : custom ? [custom] : [];
+    return {
+      question:q.q, chapter:q.chapter, section:q.section, concept:q.concept,
+      selected:d.user.map(i=>q.options[i]), correct:q.answer.map(i=>q.options[i]),
+      omitted, incorrect, unanswered:!d.user.length,
+      lessons:lessons.length ? lessons : [{
+        explanation:q.explanation,
+        check:q.q,
+        answer:q.answer.map(i=>q.options[i]).join("; ")
+      }]
+    };
+  });
+}
 function notesHTML(){
-  const r=lastResults;
-  const weak=Object.entries(r.attemptConcept).filter(([c,s])=>s.issues>0).sort((a,b)=>(a[1].points/a[1].total)-(b[1].points/b[1].total));
-  if(!weak.length)return `<p class="status-good">Nothing to add: you were fully correct on every concept in this attempt.</p>`;
-  return weak.map(([c,s])=>{
-    const n=NOTES[c];
-    const hist=conceptAccuracy(c);
-    return `<div class="note-item">
-      <h3>${n.title}</h3>
-      <div class="small">${s.issues} question(s) missed or partial this attempt${hist===null?"":` • historical mastery ${Math.round(hist*100)}%`}</div>
-      <p>${n.note}</p>
-      <div class="mnemonic"><b>Handy memory hook:</b> ${n.mnemonic}</div>
-    </div>`;
-  }).join("");
+  const notes=personalizedNotes();
+  if(!notes.length)return `<p class="status-good">Nothing to add: you were fully correct on every question in this attempt.</p>`;
+  const list=items=>`<ul>${items.map(text=>`<li>${escapeNote(text)}</li>`).join("")}</ul>`;
+  return `<p class="small">These notes focus on the questions and answer choices you missed in this attempt. Cover the self-check answer and try explaining it in your own words.</p>`+notes.map(n=>`<div class="note-item">
+    <div class="small">Chapter ${n.chapter} • Section ${escapeNote(n.section)} • ${escapeNote(n.concept)}</div>
+    <h3>${escapeNote(n.question)}</h3>
+    ${n.unanswered?`<p><b>You left this question unanswered.</b></p>`:`<div><b>You selected:</b>${list(n.selected)}</div>`}
+    ${n.incorrect.length?`<div><b>Selected incorrectly:</b>${list(n.incorrect)}</div>`:""}
+    ${n.omitted.length?`<div><b>${n.unanswered?"Correct answer to learn":"You missed this correct answer"}${n.omitted.length>1?"s":""}:</b>${list(n.omitted)}</div>`:""}
+    <div><b>Complete correct answer:</b>${list(n.correct)}</div>
+    ${n.lessons.map(l=>`<p><b>What to understand:</b> ${escapeNote(l.explanation)}</p>
+      ${l.mnemonic?`<div class="mnemonic"><b>Remember:</b> ${escapeNote(l.mnemonic)}</div>`:""}
+      <p><b>Check yourself:</b> ${escapeNote(l.check)}</p>
+      <details><summary>Show self-check answer</summary><p>${escapeNote(l.answer)}</p></details>`).join("")}
+  </div>`).join("");
 }
 function showTab(tab){
   document.querySelectorAll(".tab").forEach(b=>b.classList.toggle("active",b.dataset.tab===tab));
@@ -393,9 +460,23 @@ function renderMastery(){
 }
 function studyNotesText(){
   const r=lastResults; if(!r)return "";
-  const weak=Object.entries(r.attemptConcept).filter(([c,s])=>s.issues>0).sort((a,b)=>(a[1].points/a[1].total)-(b[1].points/b[1].total));
   let out=`A&P Chapters 1–2 — Personalized Study Notes\n\nStrict score: ${r.strict}/${r.total}\nConcept accuracy: ${Math.round(r.points/r.total*100)}%\n\n`;
-  for(const [c,s] of weak){const n=NOTES[c];out+=`${n.title}\n${"-".repeat(60)}\n${n.note}\nMnemonic: ${n.mnemonic}\n\n`;}
+  const notes=personalizedNotes();
+  if(!notes.length)return out+"You were fully correct on every question in this attempt.\n";
+  const lines=items=>items.map(text=>`- ${text}`).join("\n");
+  for(const n of notes){
+    out+=`${n.question}\n${"-".repeat(60)}\nChapter ${n.chapter} | Section ${n.section} | ${n.concept}\n`;
+    out+=n.unanswered?"You left this question unanswered.\n":`You selected:\n${lines(n.selected)}\n`;
+    if(n.incorrect.length)out+=`Selected incorrectly:\n${lines(n.incorrect)}\n`;
+    if(n.omitted.length)out+=`Missed correct answers:\n${lines(n.omitted)}\n`;
+    out+=`Complete correct answer:\n${lines(n.correct)}\n`;
+    for(const l of n.lessons){
+      out+=`\nWhat to understand: ${l.explanation}\n`;
+      if(l.mnemonic)out+=`Remember: ${l.mnemonic}\n`;
+      out+=`Check yourself: ${l.check}\nSelf-check answer: ${l.answer}\n`;
+    }
+    out+="\n";
+  }
   return out;
 }
 $("downloadNotesBtn").onclick=()=>{

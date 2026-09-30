@@ -47,7 +47,7 @@ After submission, the app accumulates concept credit and question counts in your
 
 Mistakes Only combines missed question IDs with questions from concepts below 85% historical accuracy. A fully correct later answer removes that question from the missed set. With no eligible history, the mode falls back to a weak-spot drill; a small eligible pool is supplemented with other questions to reach 20.
 
-The home screen shows up to ten tracked concepts, weakest first. Personalized Notes selects prepared explanations and mnemonics for concepts missed or partly correct in the latest attempt. “Practice These Weak Spots” starts a drill based on accumulated history, including that attempt.
+The home screen shows up to ten tracked concepts, weakest first. Personalized Notes addresses each missed or partially correct question in the latest attempt: your selections, omitted correct choices, incorrect selections, the complete answer, a question-specific explanation, and a self-check. Movement and valence-stability questions include extra targeted examples and memory hooks; other questions use their own bank explanation. Downloaded notes contain the same feedback. “Practice These Weak Spots” starts a drill based on accumulated history, including that attempt.
 
 ## Randomized exams, stable answer keys
 
