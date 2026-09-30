@@ -16,6 +16,8 @@ An independent, browser-based study companion for **OpenStax Anatomy & Physiolog
 
 </div>
 
+![Live exam trainer home screen with six study modes and magnesium lesson](docs/images/exam-trainer-home.png)
+
 Practice anatomy fundamentals and introductory chemistry with randomized exams, clear answer explanations, and study notes selected from the concepts you missed. Everything runs in one self-contained HTML file.
 
 ## ✨ Study with purpose
@@ -97,6 +99,7 @@ Semantic HTML, responsive CSS, vanilla JavaScript, browser `localStorage`, and t
 .
 ├── index.html                 # Complete app, question bank, styles, and logic
 ├── README.md                  # Project guide
+├── docs/images/exam-trainer-home.png # Screenshot of the live home screen
 ├── LICENSE                    # MIT license for original software/code
 ├── .gitignore                 # Local/editor/generated file exclusions
 └── .github/workflows/pages.yml # Official GitHub Pages deployment workflow
