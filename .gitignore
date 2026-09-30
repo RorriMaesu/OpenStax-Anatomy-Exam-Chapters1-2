@@ -1,0 +1,19 @@
+# OS and editor files
+.DS_Store
+Thumbs.db
+Desktop.ini
+.vscode/
+.idea/
+*.swp
+*~
+
+# Local tooling and private configuration
+node_modules/
+__pycache__/
+.venv/
+.env
+.env.*
+!.env.example
+*.log
+playwright-report/
+test-results/
