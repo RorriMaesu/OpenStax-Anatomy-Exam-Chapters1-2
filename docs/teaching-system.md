@@ -30,7 +30,7 @@ lesson: {
 }
 ```
 
-Fields are optional. The legacy `explanation` is retained as fallback. Choices are keyed by their text, never by a displayed letter or position; shuffling remaps the answer indices but does not change choice text. Select-all questions have individual choice lessons so omitting the first-shell statement teaches the two-electron capacity rather than a magnesium detour. Closely related single-answer questions share narrow teaching themes where appropriate; the selected-choice diagnosis still identifies the actual option.
+Fields are optional. The legacy `explanation` is retained as fallback. Teaching choices are keyed by their original text. Displayed choices carry stable `optionIds` that resolve back to those original keys, so both answer-position shuffling and curated alternate wording preserve the correct feedback. The separate `ANSWER_VARIANTS` table stores equivalent answer sets in original option order. Select-all questions have individual choice lessons so omitting the first-shell statement teaches the two-electron capacity rather than a magnesium detour. Closely related single-answer questions share narrow teaching themes where appropriate; the selected-choice diagnosis still identifies the actual option.
 
 `lessonFor` checks current bank metadata by stable question ID, then the question's own metadata, then its short explanation. This upgrades exams saved before the release without rewriting their answers. `teachingNote` supplies both rendered cards and text downloads. `relatedQuestions` samples the same concept with a different ID, then shuffles answer choices. A native modal dialog provides Escape-to-close, focus restoration, and independent unscored practice.
 
@@ -310,3 +310,11 @@ Each row below represents a reviewed question with a lesson, choice feedback, ex
 | 237 | DNA, RNA & ATP | Adenine and guanine are classified as: |
 | 238 | DNA, RNA & ATP | Cytosine, thymine, and uracil are classified as: |
 | 239 | DNA, RNA & ATP | Select all correct statements about DNA, RNA, and ATP. |
+
+## Alternate answer wording
+
+All 239 questions have an alternate complete answer set; eight have a second alternate set (247 additional sets total). Both correct answers and distractors are varied. Exact scientific terms are retained where replacing them would change meaning. The original bank and keys remain unchanged.
+
+`randomizeExamQuestion` first changes the answer layout, then selects a wording version different from the last generated version for that question in this browser. It stores the version and stable option IDs with the existing layout history. Saved sessions retain their exact wording; older sessions with original text remain supported. Unscored related practice varies wording independently and does not write exam history. Reset clears the shared position/wording history.
+
+Tests exercise canonical answer identity, choice-specific teaching, partial-credit cases, variant changes, downloaded notes, and resume behavior. New wording should always be reviewed for equivalent meaning, including the truth or falsity of distractors; passing structural tests alone does not establish educational equivalence.

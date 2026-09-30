@@ -9160,10 +9160,2002 @@ function mistakeSample(n) {
   }
   return out.slice(0,n);
 }
+// Curated equivalent wordings. Each array uses the original BANK option indices.
+// Stable optionIds connect displayed wording to keys, lessons, and choice history.
+const ANSWER_VARIANTS = {
+  "1": [
+    [
+      "Anatomy examines body structures; physiology explains how they work.",
+      "Anatomy explains function; physiology examines structure.",
+      "Anatomy applies only to living people, and physiology only to cadavers.",
+      "Anatomy is always microscopic, whereas physiology is always macroscopic."
+    ]
+  ],
+  "2": [
+    [
+      "studying all structures in a single body region",
+      "studying tissues microscopically",
+      "studying how body structures work",
+      "studying structures visible without magnification"
+    ]
+  ],
+  "3": [
+    [
+      "following a single organ system throughout the body",
+      "examining all structures within one body region",
+      "studying individual cells",
+      "studying how body parts function"
+    ]
+  ],
+  "4": [
+    [
+      "examining all structures in one area of the body",
+      "following one organ system throughout the body",
+      "examining tissues microscopically",
+      "studying individual cells"
+    ]
+  ],
+  "5": [
+    [
+      "individual cells",
+      "tissues and their organization",
+      "body structures visible without magnification",
+      "entire organ systems"
+    ]
+  ],
+  "6": [
+    [
+      "individual cells",
+      "tissues and their organization",
+      "anatomical regions of the body",
+      "entire organ systems"
+    ]
+  ],
+  "7": [
+    [
+      "can be seen without magnifying equipment",
+      "are visible only through an electron microscope",
+      "consist exclusively of cells",
+      "consist exclusively of tissues"
+    ]
+  ],
+  "8": [
+    [
+      "The thumb's structure enables the hand to grip things.",
+      "Every tissue has the same structure.",
+      "The shape of a body part has no connection to its function.",
+      "Function is a property only of microscopic structures."
+    ]
+  ],
+  "9": [
+    [
+      "Chemicals → cells → tissues → organs → organ systems → whole organism",
+      "Cells → chemicals → tissues → organs → whole organism → organ systems",
+      "Chemicals → tissues → cells → organs → organ systems → whole organism",
+      "Tissues → cells → chemicals → organs → organ systems → whole organism"
+    ]
+  ],
+  "10": [
+    [
+      "chemical molecule",
+      "living cell",
+      "group of related cells forming a tissue",
+      "structure composed of multiple tissue types"
+    ]
+  ],
+  "11": [
+    [
+      "related cells cooperating to carry out a particular job",
+      "several organs working together on a major body function",
+      "the smallest unit that can function independently as a living unit",
+      "any body part large enough to see without magnification"
+    ]
+  ],
+  "12": [
+    [
+      "An organ is made from at least two types of tissue.",
+      "An organ is defined by being visible to the naked eye.",
+      "Every tissue has a separate blood supply.",
+      "A tissue is capable of living independently as an organism."
+    ]
+  ],
+  "13": [
+    [
+      "No organ can be part of more than one organ system.",
+      "A single organ can help more than one system perform its functions.",
+      "Organ systems are simpler in organization than tissues.",
+      "Molecules directly form organ systems without intermediate levels."
+    ]
+  ],
+  "14": [
+    [
+      "the organ level",
+      "the cellular level",
+      "the chemical level",
+      "the whole-organism level"
+    ]
+  ],
+  "15": [
+    [
+      "the complete organism",
+      "an organ system",
+      "an individual organ",
+      "a tissue"
+    ]
+  ],
+  "16": [
+    [
+      "a structure at the organ level",
+      "a single cell",
+      "a structure within a cell",
+      "a chemical molecule"
+    ]
+  ],
+  "17": [
+    [
+      "A tissue",
+      "An organ",
+      "A system of organs",
+      "A chemical molecule",
+      "A complete organism"
+    ]
+  ],
+  "18": [
+    [
+      "The integumentary system",
+      "The endocrine system",
+      "The lymphatic system",
+      "The respiratory system"
+    ]
+  ],
+  "19": [
+    [
+      "The endocrine system",
+      "The skeletal system",
+      "The respiratory system",
+      "The digestive system"
+    ]
+  ],
+  "20": [
+    [
+      "The cardiovascular system",
+      "The integumentary system",
+      "The urinary system",
+      "The reproductive system"
+    ]
+  ],
+  "21": [
+    [
+      "The respiratory system",
+      "The digestive system",
+      "The skeletal system",
+      "The endocrine system"
+    ]
+  ],
+  "22": [
+    [
+      "The skeletal system",
+      "The urinary system",
+      "The endocrine system",
+      "The digestive system"
+    ]
+  ],
+  "23": [
+    [
+      "The muscular system",
+      "The lymphatic system",
+      "The respiratory system",
+      "The urinary system"
+    ]
+  ],
+  "24": [
+    [
+      "The nervous system",
+      "The digestive system",
+      "The integumentary system",
+      "The reproductive system"
+    ]
+  ],
+  "25": [
+    [
+      "The urinary system",
+      "The respiratory system",
+      "The skeletal system",
+      "The integumentary system"
+    ]
+  ],
+  "26": [
+    [
+      "The digestive system",
+      "The endocrine system",
+      "The skeletal system",
+      "The nervous system"
+    ]
+  ],
+  "27": [
+    [
+      "The lymphatic and immune system",
+      "The muscular system",
+      "The reproductive system",
+      "The integumentary system"
+    ]
+  ],
+  "28": [
+    [
+      "all the body's building and breakdown chemical reactions together",
+      "just the chemical reactions that give off energy",
+      "just the chemical reactions that assemble large molecules",
+      "traveling from one location to another"
+    ]
+  ],
+  "29": [
+    [
+      "assembles bigger molecules and uses energy",
+      "splits bigger molecules and releases energy",
+      "takes place exclusively during physical exercise",
+      "is the same process as responding to a stimulus"
+    ]
+  ],
+  "30": [
+    [
+      "splits large molecules into smaller ones and releases energy",
+      "assembles large molecules and stores all the energy",
+      "takes place exclusively in the digestive tract",
+      "stops cells from using ATP"
+    ]
+  ],
+  "31": [
+    [
+      "an anabolic process",
+      "a catabolic process",
+      "a reproductive process",
+      "a response to a stimulus"
+    ]
+  ],
+  "32": [
+    [
+      "adjusting to a detected change",
+      "producing a new organism",
+      "becoming a more specialized cell",
+      "increasing in size, and nothing else"
+    ]
+  ],
+  "33": [
+    [
+      "cell differentiation",
+      "catabolic breakdown",
+      "physical movement",
+      "the sum of a cell's chemical reactions"
+    ]
+  ],
+  "34": [
+    [
+      "hold and transfer energy that can power cellular work",
+      "preserve hereditary instructions",
+      "create spaces between body organs",
+      "transport oxygen"
+    ]
+  ],
+  "35": [
+    [
+      "motion at the whole-body, organ, and individual-cell levels",
+      "walking and running, but no other kinds of motion",
+      "motion of the skeleton and nothing else",
+      "motion that is consciously controlled, and nothing else"
+    ],
+    [
+      "motion of the entire person, internal organs, and separate cells",
+      "nothing beyond walking or running",
+      "movement confined to the skeleton",
+      "movement confined to actions under conscious control"
+    ]
+  ],
+  "36": [
+    [
+      "producing a new individual from parent organisms",
+      "replenishing the supply of ATP",
+      "changing a protein into its folded shape",
+      "keeping internal conditions within their normal ranges"
+    ]
+  ],
+  "37": [
+    [
+      "Adding more cells",
+      "Adding material outside and around the cells",
+      "Enlarging existing cells within limits",
+      "Converting all cells into nerve cells"
+    ]
+  ],
+  "38": [
+    [
+      "A supply of oxygen",
+      "A supply of nutrients",
+      "Temperatures within a limited suitable range",
+      "Exposure to sunlight directly"
+    ]
+  ],
+  "39": [
+    [
+      "Brain cells need a large, continuous supply of ATP.",
+      "Only brain tissue can store oxygen.",
+      "The brain's cells are unable to use glucose.",
+      "Brain tissue is completely without water."
+    ]
+  ],
+  "40": [
+    [
+      "Fats and carbohydrates",
+      "Minerals and vitamins",
+      "Minerals and water",
+      "Only proteins together with vitamins"
+    ]
+  ],
+  "41": [
+    [
+      "nutrients required in small amounts",
+      "nutrients required in large amounts",
+      "biological catalysts",
+      "specialized structures inside cells"
+    ]
+  ],
+  "42": [
+    [
+      "The body stores some micronutrients, but certain water-soluble vitamins need more frequent replacement.",
+      "The body is unable to store any micronutrient.",
+      "Every micronutrient directly provides the bulk of cellular ATP.",
+      "Micronutrients consist of carbohydrates and fats."
+    ]
+  ],
+  "43": [
+    [
+      "Air with abundant water vapor slows the evaporation of sweat.",
+      "Humidity changes sweat into a nonpolar substance.",
+      "Humidity completely stops circulation to the skin.",
+      "Humidity prevents the body from making water."
+    ]
+  ],
+  "44": [
+    [
+      "Sending less blood to the limbs",
+      "Widening the blood vessels in the skin",
+      "Decreasing metabolic activity",
+      "Producing more sweat"
+    ]
+  ],
+  "45": [
+    [
+      "nitrogen forming bubbles as the surrounding pressure drops",
+      "oxygen changing into a solid",
+      "glucose in the blood no longer dissolving",
+      "ATP escaping from the bloodstream"
+    ]
+  ],
+  "46": [
+    [
+      "makes the exchange of gases less effective",
+      "causes an enormous increase in blood pressure",
+      "eliminates every nitrogen molecule",
+      "immediately halts the activity of every enzyme"
+    ]
+  ],
+  "47": [
+    [
+      "The body's water supply",
+      "Dietary protein",
+      "Vitamin D intake",
+      "Dietary iron"
+    ]
+  ],
+  "48": [
+    [
+      "keeping the internal environment relatively stable",
+      "preventing any internal variation whatsoever",
+      "maintaining continuous amplifying feedback",
+      "examining the organization of tissues"
+    ]
+  ],
+  "49": [
+    [
+      "the target, or set point",
+      "the detecting receptor",
+      "the responding effector",
+      "the triggering stimulus"
+    ]
+  ],
+  "50": [
+    [
+      "the detecting sensor or receptor",
+      "the responding effector",
+      "the substance produced",
+      "the target value"
+    ]
+  ],
+  "51": [
+    [
+      "the coordinating control center",
+      "the structure carrying out the response",
+      "only the detecting receptor",
+      "the initial change"
+    ]
+  ],
+  "52": [
+    [
+      "the responding effector",
+      "the detecting receptor",
+      "the target value",
+      "the initial stimulus"
+    ]
+  ],
+  "53": [
+    [
+      "Initial change → detector → control center → responding structure → response",
+      "Responding structure → detector → initial change → control center",
+      "Control center → initial change → detector → target value",
+      "Response → initial change → target value → detector"
+    ]
+  ],
+  "54": [
+    [
+      "Widening skin blood vessels and producing more sweat",
+      "Narrowing skin blood vessels and shivering",
+      "Releasing more thyroid hormone",
+      "Generating additional body heat"
+    ]
+  ],
+  "55": [
+    [
+      "Shivering while decreasing blood flow near the skin",
+      "Producing sweat while widening skin blood vessels",
+      "Decreasing metabolic activity while producing sweat",
+      "Losing more heat through the lungs"
+    ]
+  ],
+  "56": [
+    [
+      "acts against a departure from the target value",
+      "strengthens the change that started the response",
+      "invariably finishes with delivery of a baby",
+      "operates only when the body is diseased"
+    ]
+  ],
+  "57": [
+    [
+      "Labor and delivery",
+      "Ordinary regulation of body temperature",
+      "Ordinary regulation of blood glucose",
+      "Ordinary stabilization of blood pressure"
+    ]
+  ],
+  "58": [
+    [
+      "the process recruits additional clotting until the injury is closed",
+      "every step undoes the step just before it",
+      "its effect is always to reduce blood pressure",
+      "it stops subsequent chemical reactions from occurring"
+    ]
+  ],
+  "59": [
+    [
+      "a loop that counteracts the original change",
+      "a loop that amplifies the original change",
+      "a reduction in surrounding pressure",
+      "the standard reference posture of the body"
+    ]
+  ],
+  "60": [
+    [
+      "It generally counteracts movement away from a target value.",
+      "It is widely used to maintain stable internal conditions.",
+      "A detector, control center, and responding structure may all participate.",
+      "It must drive the internal condition farther away from normal.",
+      "Regulating body temperature illustrates this process."
+    ]
+  ],
+  "61": [
+    [
+      "toward the front of the body",
+      "toward the back of the body",
+      "toward the body's midline",
+      "toward the feet"
+    ]
+  ],
+  "62": [
+    [
+      "lying in a prone position",
+      "lying in a supine position",
+      "nearer a limb's attachment",
+      "farther from a limb's attachment"
+    ]
+  ],
+  "63": [
+    [
+      "lying in a supine position",
+      "lying in a prone position",
+      "farther beneath the surface",
+      "nearer the surface"
+    ]
+  ],
+  "64": [
+    [
+      "closer to the midline",
+      "farther from the midline",
+      "farther from a limb's attachment",
+      "closer to the body's surface"
+    ]
+  ],
+  "65": [
+    [
+      "closer to the body surface",
+      "farther beneath the body surface",
+      "farther from a limb's attachment",
+      "farther toward the back"
+    ]
+  ],
+  "66": [
+    [
+      "farther beneath the body surface",
+      "closer to the body surface",
+      "lower in the body",
+      "farther from a limb's attachment"
+    ]
+  ],
+  "67": [
+    [
+      "nearer the upper limb's attachment",
+      "farther from the upper limb's attachment",
+      "nearer the body's midline",
+      "farther beneath the body surface"
+    ]
+  ],
+  "68": [
+    [
+      "farther from the upper limb's attachment",
+      "nearer the upper limb's attachment",
+      "above",
+      "nearer the body's midline"
+    ]
+  ],
+  "69": [
+    [
+      "toward the front",
+      "toward the back",
+      "toward the side, away from the midline",
+      "farther from a limb's attachment"
+    ]
+  ],
+  "70": [
+    [
+      "toward the back",
+      "toward the front",
+      "nearer the body surface",
+      "farther from a limb's attachment"
+    ]
+  ],
+  "71": [
+    [
+      "nearer the body's midline",
+      "farther from the body's midline",
+      "farther from a limb's attachment",
+      "lower in position"
+    ]
+  ],
+  "72": [
+    [
+      "farther from the body's midline",
+      "nearer the body's midline",
+      "nearer a limb's attachment",
+      "farther beneath the surface"
+    ]
+  ],
+  "73": [
+    [
+      "above",
+      "below",
+      "farther from a limb's attachment",
+      "nearer the body surface"
+    ]
+  ],
+  "74": [
+    [
+      "below",
+      "above",
+      "nearer the body's midline",
+      "nearer a limb's attachment"
+    ]
+  ],
+  "75": [
+    [
+      "The coronal, or frontal, plane",
+      "A sagittal plane",
+      "A transverse plane",
+      "The median, or midsagittal, plane"
+    ]
+  ],
+  "76": [
+    [
+      "A transverse plane",
+      "A frontal plane",
+      "A sagittal plane",
+      "A parasagittal plane"
+    ]
+  ],
+  "77": [
+    [
+      "A sagittal plane",
+      "A frontal plane",
+      "A transverse plane",
+      "A coronal plane"
+    ]
+  ],
+  "78": [
+    [
+      "a median, or midsagittal, section",
+      "a parasagittal section",
+      "a transverse section",
+      "a frontal section"
+    ]
+  ],
+  "79": [
+    [
+      "an off-center sagittal section",
+      "a midline sagittal section",
+      "a transverse section",
+      "a frontal section"
+    ]
+  ],
+  "80": [
+    [
+      "an oblique section",
+      "a transverse section",
+      "a midsagittal section",
+      "a coronal section"
+    ]
+  ],
+  "81": [
+    [
+      "the segment from shoulder to elbow",
+      "the segment from elbow to wrist",
+      "the wrist area",
+      "the segment from hip to knee"
+    ]
+  ],
+  "82": [
+    [
+      "the segment from elbow to wrist",
+      "the segment from shoulder to elbow",
+      "the segment from knee to ankle",
+      "the wrist area"
+    ]
+  ],
+  "83": [
+    [
+      "knee joint and ankle joint",
+      "hip joint and knee joint",
+      "ankle joint and toes",
+      "pelvis and hip"
+    ]
+  ],
+  "84": [
+    [
+      "the spaces enclosing the brain and spinal cord",
+      "the chest and abdominal spaces",
+      "the spaces associated with the lungs and heart",
+      "the abdominal and pelvic spaces"
+    ]
+  ],
+  "85": [
+    [
+      "the chest cavity and the combined abdominal-pelvic cavity",
+      "the cavities enclosing the brain and spinal cord",
+      "the cavities of the skull and chest",
+      "only the spinal and pelvic cavities"
+    ]
+  ],
+  "86": [
+    [
+      "chest cavity from the combined abdominal-pelvic cavity",
+      "skull cavity from the spinal cavity",
+      "abdominal cavity from pelvic cavity with a membrane",
+      "lung-associated spaces from the heart-associated space"
+    ]
+  ],
+  "87": [
+    [
+      "central region of the thorax called the mediastinum",
+      "space inside the skull",
+      "pelvic portion of the ventral cavity",
+      "space enclosing the spinal cord"
+    ]
+  ],
+  "88": [
+    [
+      "space inside the skull",
+      "space inside the chest",
+      "abdominal cavity",
+      "pelvic cavity"
+    ]
+  ],
+  "89": [
+    [
+      "vertebral canal, also called the spinal cavity",
+      "space associated with a lung",
+      "peritoneal cavity",
+      "central region between the lungs"
+    ]
+  ],
+  "90": [
+    [
+      "organ-covering visceral layer",
+      "cavity-wall-lining parietal layer",
+      "dorsal layer",
+      "transverse layer"
+    ]
+  ],
+  "91": [
+    [
+      "cavity-wall-lining parietal layer",
+      "organ-covering visceral layer",
+      "mediastinal layer",
+      "deep layer"
+    ]
+  ],
+  "92": [
+    [
+      "The pleural membrane",
+      "The pericardial membrane",
+      "The peritoneal membrane",
+      "The meninges"
+    ]
+  ],
+  "93": [
+    [
+      "The pericardial membrane",
+      "The pleural membrane",
+      "The peritoneal membrane",
+      "The dura mater"
+    ]
+  ],
+  "94": [
+    [
+      "The peritoneal membrane",
+      "The pleural membrane",
+      "The pericardial membrane",
+      "The endocardial lining"
+    ]
+  ],
+  "95": [
+    [
+      "allow moving organs to slide with less friction",
+      "raise the pressure of the blood",
+      "keep a reserve of glucose",
+      "produce electrical nerve signals"
+    ]
+  ],
+  "96": [
+    [
+      "the epigastric area",
+      "the hypogastric area",
+      "the right iliac area",
+      "the left lumbar area"
+    ]
+  ],
+  "97": [
+    [
+      "navel, or umbilicus",
+      "breastbone, or sternum",
+      "joint called the pubic symphysis",
+      "xiphoid process alone"
+    ]
+  ],
+  "98": [
+    [
+      "Plain X-ray imaging",
+      "Magnetic resonance imaging",
+      "Sonographic imaging",
+      "Positron emission tomography"
+    ]
+  ],
+  "99": [
+    [
+      "X-ray measurements taken from several directions",
+      "sound-wave measurements alone",
+      "magnetic-signal measurements alone",
+      "photographs made using visible light"
+    ]
+  ],
+  "100": [
+    [
+      "Magnetic resonance imaging",
+      "Computed tomography",
+      "Plain X-ray imaging",
+      "Positron emission tomography"
+    ]
+  ],
+  "101": [
+    [
+      "Positron emission tomography",
+      "A standard X-ray image",
+      "Sonographic imaging",
+      "A plain radiograph"
+    ]
+  ],
+  "102": [
+    [
+      "Sonographic imaging",
+      "Computed tomography",
+      "Plain X-ray imaging",
+      "Positron emission tomography"
+    ]
+  ],
+  "103": [
+    [
+      "Computed tomography",
+      "Magnetic resonance imaging",
+      "Sonographic imaging",
+      "Not one of the listed methods"
+    ]
+  ],
+  "104": [
+    [
+      "Magnetic resonance imaging",
+      "Computed tomography",
+      "Plain X-ray imaging",
+      "Positron emission tomography"
+    ]
+  ],
+  "105": [
+    [
+      "Computed tomography obtains measurements with X-rays.",
+      "Magnetic resonance imaging uses magnetic fields along with radio waves.",
+      "Positron emission tomography uses radioactive pharmaceutical tracers.",
+      "Sonographic images are made with sound waves.",
+      "Ordinary X-ray images are the best way to map metabolic activity."
+    ]
+  ],
+  "106": [
+    [
+      "has mass and takes up space",
+      "is defined solely by possessing electrical charge",
+      "must include carbon atoms",
+      "must be living"
+    ]
+  ],
+  "107": [
+    [
+      "an individual atom",
+      "an individual proton",
+      "a chemical compound",
+      "a molecule"
+    ]
+  ],
+  "108": [
+    [
+      "positively charged protons",
+      "electrically neutral neutrons",
+      "occupied electron shells",
+      "versions of an element called isotopes"
+    ]
+  ],
+  "109": [
+    [
+      "the counts of protons plus neutrons",
+      "the counts of protons plus electrons",
+      "the counts of electrons plus neutrons",
+      "the counts of shells plus protons"
+    ]
+  ],
+  "110": [
+    [
+      "A proton",
+      "An electron",
+      "A neutron",
+      "A photon"
+    ]
+  ],
+  "111": [
+    [
+      "An electron",
+      "A proton",
+      "A neutron",
+      "The atomic nucleus"
+    ]
+  ],
+  "112": [
+    [
+      "A neutron",
+      "A proton",
+      "An electron",
+      "A positively charged ion"
+    ]
+  ],
+  "113": [
+    [
+      "Eight electrons",
+      "Sixteen electrons",
+      "Four electrons",
+      "Ten electrons"
+    ]
+  ],
+  "114": [
+    [
+      "Thirteen neutrons",
+      "Twelve neutrons",
+      "Twenty-five neutrons",
+      "Thirty-seven neutrons"
+    ]
+  ],
+  "115": [
+    [
+      "uncharged nuclear particles",
+      "positively charged nuclear particles",
+      "atomic numbers",
+      "identities as chemical elements"
+    ]
+  ],
+  "116": [
+    [
+      "Every one has eight protons.",
+      "Every one has eight neutrons.",
+      "Every one has a mass number of sixteen.",
+      "Every one has eight electrons, including its ions."
+    ]
+  ],
+  "117": [
+    [
+      "O, C, H, and N",
+      "Ca, Na, K, and Cl",
+      "Fe, Ca, Mg, and Na",
+      "C, S, P, and Fe"
+    ]
+  ],
+  "118": [
+    [
+      "an electron region surrounding the nucleus at a particular energy level",
+      "the central nucleus of the atom",
+      "a collection of neutrons",
+      "a category of chemical bonding"
+    ]
+  ],
+  "119": [
+    [
+      "Two electrons",
+      "Eight electrons",
+      "Six electrons",
+      "Ten electrons"
+    ]
+  ],
+  "120": [
+    [
+      "Eight electrons",
+      "Two electrons",
+      "Four electrons",
+      "Sixteen electrons"
+    ]
+  ],
+  "121": [
+    [
+      "the farthest electron shell from the nucleus that contains electrons",
+      "the second electron shell in every atom",
+      "a region occupied by protons",
+      "the central atomic nucleus"
+    ]
+  ],
+  "122": [
+    [
+      "An octet is a common stable goal, not a description of every atom's present outer-shell count.",
+      "All electron shells have a maximum capacity of two.",
+      "The particles called valence electrons are actually neutrons.",
+      "Stability is possible only when an atom has zero electrons."
+    ]
+  ],
+  "123": [
+    [
+      "First shell: 2; second: 8; third: 2",
+      "First shell: 8; second: 4",
+      "First shell: 2; second: 10",
+      "First shell: 2; second: 6; third: 4"
+    ]
+  ],
+  "124": [
+    [
+      "Removing the two electrons in shell three leaves the filled 2 | 8 pattern underneath.",
+      "The magnesium atom lacks electrons in its outermost occupied shell.",
+      "Adding electrons would give magnesium a neutral charge.",
+      "Eight electrons can fit into magnesium's first shell."
+    ],
+    [
+      "Shedding the two valence electrons makes the already full second shell outermost.",
+      "There are no electrons in magnesium’s valence shell.",
+      "Taking in electrons would restore electrical neutrality.",
+      "Magnesium can place eight electrons in its first shell."
+    ]
+  ],
+  "125": [
+    [
+      "a magnesium ion with a +2 charge",
+      "a magnesium ion with a −2 charge",
+      "magnesium with zero net charge",
+      "a magnesium ion with a +6 charge"
+    ]
+  ],
+  "126": [
+    [
+      "giving up its one outer electron",
+      "taking in seven more electrons",
+      "giving up eight electrons",
+      "adding a proton to its nucleus"
+    ]
+  ],
+  "127": [
+    [
+      "taking in one more electron",
+      "giving up seven electrons",
+      "adding two protons to its nucleus",
+      "giving up a neutron"
+    ]
+  ],
+  "128": [
+    [
+      "Two more electrons",
+      "Six more electrons",
+      "Eight more electrons",
+      "Four more electrons"
+    ]
+  ],
+  "129": [
+    [
+      "eight electrons filling its outermost occupied shell in this model",
+      "only two electrons in its valence shell",
+      "no electrons in its second shell",
+      "a net positive charge of eight"
+    ]
+  ],
+  "130": [
+    [
+      "Two electrons left, producing a +2 cation.",
+      "Two electrons were added, producing a −2 anion.",
+      "Two protons left, but the atom remained neutral.",
+      "Six electrons were added to the atom."
+    ]
+  ],
+  "131": [
+    [
+      "One electron was added, producing a −1 anion.",
+      "One electron left, producing a +1 cation.",
+      "One proton was added, but the atom remained neutral.",
+      "A neutron left the nucleus."
+    ]
+  ],
+  "132": [
+    [
+      "an ion called a cation",
+      "an ion called an anion",
+      "a form of an element called an isotope",
+      "a substance called a buffer"
+    ]
+  ],
+  "133": [
+    [
+      "an ion called an anion",
+      "an ion called a cation",
+      "a form of an element called an isotope",
+      "a biological catalyst"
+    ]
+  ],
+  "134": [
+    [
+      "shifted toward positive charge",
+      "shifted toward negative charge",
+      "always equal to zero",
+      "independent of how many electrons it has"
+    ]
+  ],
+  "135": [
+    [
+      "shifted toward negative charge",
+      "shifted toward positive charge",
+      "always equal to zero",
+      "the same as the number of neutrons"
+    ]
+  ],
+  "136": [
+    [
+      "Its outermost occupied electron shell is filled.",
+      "It contains no electrons at all.",
+      "Its proton count is an odd number.",
+      "The nucleus carries a negative charge."
+    ]
+  ],
+  "137": [
+    [
+      "two electrons in that shell",
+      "eight electrons in that shell",
+      "one electron in that shell",
+      "ten electrons in that shell"
+    ]
+  ],
+  "138": [
+    [
+      "Two electrons fill the first shell.",
+      "The outermost shell containing electrons is the valence shell.",
+      "An octet is an especially stable valence arrangement for many atoms.",
+      "Every atom already possesses eight electrons in its valence shell.",
+      "Gaining, losing, or sharing electrons can produce a more stable arrangement."
+    ],
+    [
+      "The first energy shell has a two-electron capacity.",
+      "Valence refers to the farthest occupied electron shell.",
+      "Eight outer-shell electrons is a common stable pattern.",
+      "All atoms begin with a complete octet in the outermost occupied shell.",
+      "Atoms can approach stability through electron transfer or electron sharing."
+    ]
+  ],
+  "139": [
+    [
+      "attraction of positive ions to negative ions",
+      "attraction of one neutron to another",
+      "attraction of one proton to another",
+      "attraction only between identical nonpolar atoms"
+    ]
+  ],
+  "140": [
+    [
+      "hold electrons in common",
+      "transfer neutrons between their nuclei",
+      "hold protons in common",
+      "get rid of every outer-shell electron"
+    ]
+  ],
+  "141": [
+    [
+      "gives up one electron",
+      "takes in one electron",
+      "adds a proton to its nucleus",
+      "gives up a neutron"
+    ]
+  ],
+  "142": [
+    [
+      "takes in one electron",
+      "gives up one electron",
+      "gives up a proton",
+      "adds a neutron"
+    ]
+  ],
+  "143": [
+    [
+      "unequal electron sharing produces regions of partial positive and negative charge",
+      "oxygen takes the hydrogen atoms' electrons away entirely",
+      "unattached ions are present inside the molecule",
+      "both elements have an exactly equal share of the electrons"
+    ]
+  ],
+  "144": [
+    [
+      "a relatively weak attraction between partially charged regions of adjacent polar molecules",
+      "the shared-electron bond joining O and H within a water molecule",
+      "the ionic attraction joining sodium and chloride ions",
+      "an attraction linking two hydrogen nuclei"
+    ]
+  ],
+  "145": [
+    [
+      "A pair of bonded oxygen atoms, O₂",
+      "Water, H₂O",
+      "Carbon dioxide, CO₂",
+      "Hydrogen chloride, HCl"
+    ]
+  ],
+  "146": [
+    [
+      "positively and negatively charged ions bound by their attraction",
+      "carbon atoms linked only by covalent bonds",
+      "neutral neutrons alone",
+      "hydrogen-bond interactions alone"
+    ]
+  ],
+  "147": [
+    [
+      "Bonded atoms hold electrons in common.",
+      "Atoms have to form ions before this bond is possible.",
+      "This bond is found exclusively in salts.",
+      "Neutrons must move between atoms to make this bond."
+    ]
+  ],
+  "148": [
+    [
+      "the starting reactants",
+      "the resulting products",
+      "pH-stabilizing buffers",
+      "enzymes and no other substances"
+    ]
+  ],
+  "149": [
+    [
+      "the resulting products",
+      "the starting reactants",
+      "only enzyme substrates",
+      "charged substances called electrolytes"
+    ]
+  ],
+  "150": [
+    [
+      "ordinary chemical reactions reorganize atoms without making or destroying them",
+      "a reaction cannot change any existing bond",
+      "energy must always stay in the same form",
+      "every starting substance must generate exactly one resulting substance"
+    ]
+  ],
+  "151": [
+    [
+      "a building, or synthesis, reaction",
+      "a breakdown, or decomposition, reaction",
+      "only a partner-swapping exchange reaction",
+      "a settling process called sedimentation"
+    ]
+  ],
+  "152": [
+    [
+      "a breakdown, or decomposition, reaction",
+      "a building, or synthesis, reaction",
+      "a pH-buffering reaction",
+      "an attraction between charged ions"
+    ]
+  ],
+  "153": [
+    [
+      "a partner-swapping exchange reaction",
+      "a synthesis reaction that builds a larger product",
+      "a decomposition reaction that splits a larger reactant",
+      "decay of a radioactive nucleus"
+    ]
+  ],
+  "154": [
+    [
+      "proceed at a higher rate",
+      "proceed at a lower rate",
+      "become unable to occur",
+      "become unaffected by particle collisions"
+    ]
+  ],
+  "155": [
+    [
+      "more encounters occur between reactant particles",
+      "the particles have no motion energy left",
+      "every bond changes into an ionic bond",
+      "the enzymes cease to exist"
+    ]
+  ],
+  "156": [
+    [
+      "crowding particles together so encounters occur more often",
+      "stripping electrons from the mixture",
+      "changing the starting substances into enzymes",
+      "lowering the number of particles per volume"
+    ]
+  ],
+  "157": [
+    [
+      "reducing the energy barrier needed to start the reaction",
+      "increasing the energy barrier needed to start the reaction",
+      "being used up irreversibly in the reaction",
+      "converting atoms of one element into another element"
+    ]
+  ],
+  "158": [
+    [
+      "a reusable catalyst",
+      "a resulting product",
+      "a pH-stabilizing buffer",
+      "a dissolved solute"
+    ]
+  ],
+  "159": [
+    [
+      "the enzyme's substrate",
+      "the reaction's product",
+      "a pH buffer",
+      "a negatively charged ion"
+    ]
+  ],
+  "160": [
+    [
+      "the substrate-binding active site",
+      "the outermost occupied electron shell",
+      "the phosphate tail",
+      "the fluid space between serous layers"
+    ]
+  ],
+  "161": [
+    [
+      "a match between the substrate's shape and charge and the binding region",
+      "equal binding of every molecule by every enzyme",
+      "conversion of enzyme molecules into substrate molecules",
+      "a complete lack of three-dimensional enzyme shape"
+    ]
+  ],
+  "162": [
+    [
+      "the correct substrate may no longer bind well at the active site",
+      "its atomic number rises",
+      "it changes into a fat molecule",
+      "it develops additional electron shells"
+    ]
+  ],
+  "163": [
+    [
+      "Raising temperature while remaining within a suitable range",
+      "Adding more reactant particles per volume",
+      "Raising pressure in a confined reaction system",
+      "Providing a suitable catalyst",
+      "Taking away nearly all the reactants"
+    ]
+  ],
+  "164": [
+    [
+      "medium for dissolving substances",
+      "steroid molecule",
+      "long sugar polymer",
+      "biological catalyst"
+    ]
+  ],
+  "165": [
+    [
+      "Water has partially positive and negative regions.",
+      "Water lacks polarity.",
+      "Water has no regions with different electrical character.",
+      "Carbon is the only element in water."
+    ]
+  ],
+  "166": [
+    [
+      "friction-reducing fluid",
+      "carrier of hereditary instructions",
+      "hormone signal",
+      "protein-building unit"
+    ]
+  ],
+  "167": [
+    [
+      "protecting fragile nervous tissue by cushioning it",
+      "joining amino acids with peptide bonds",
+      "keeping glucose in storage polymers",
+      "producing new electron shells"
+    ]
+  ],
+  "168": [
+    [
+      "absorbs considerable heat while its temperature rises only modestly",
+      "is incapable of becoming water vapor",
+      "lacks electrical polarity",
+      "becomes solid at normal body temperature"
+    ]
+  ],
+  "169": [
+    [
+      "given off when the new bond forms",
+      "consumed to break a covalent bond",
+      "changed into ATP",
+      "uninvolved in the process"
+    ],
+    [
+      "formed and released when smaller units join",
+      "used up to separate a covalent linkage",
+      "transformed into an ATP molecule",
+      "not involved at all"
+    ]
+  ],
+  "170": [
+    [
+      "consumed as part of splitting a covalent bond",
+      "given off as a larger polymer is assembled",
+      "changed into a fat molecule",
+      "taken out of the reaction"
+    ],
+    [
+      "used to separate the bonded parts of a molecule",
+      "formed as small units join into a chain",
+      "transformed into a lipid molecule",
+      "excluded from the chemical process"
+    ]
+  ],
+  "171": [
+    [
+      "evenly mixed solution",
+      "mixture called a suspension",
+      "colloid and nothing else",
+      "solid crystal"
+    ]
+  ],
+  "172": [
+    [
+      "dispersed-particle mixture called a colloid",
+      "evenly dissolved solution",
+      "a suspension that settles at once",
+      "solvent with no other substance in it"
+    ]
+  ],
+  "173": [
+    [
+      "settling mixture called a suspension",
+      "evenly dissolved solution",
+      "colloidal mixture",
+      "chemically bonded compound"
+    ]
+  ],
+  "174": [
+    [
+      "the dissolving medium, or solvent",
+      "the dissolved material, or solute",
+      "a reaction's product",
+      "an enzyme's substrate"
+    ]
+  ],
+  "175": [
+    [
+      "the solute within the mixture",
+      "the solvent of the mixture",
+      "a reaction-speeding catalyst",
+      "a buffer and no other type of substance"
+    ]
+  ],
+  "176": [
+    [
+      "mix or interact easily with water",
+      "stay away from water because they lack polarity",
+      "have no electrically polar portions",
+      "be unable to dissolve by definition"
+    ]
+  ],
+  "177": [
+    [
+      "mix or interact poorly with water",
+      "dissolve easily as a result of strong polarity",
+      "invariably become charged ions",
+      "consist exclusively of carbohydrates"
+    ]
+  ],
+  "178": [
+    [
+      "A medium in which substances dissolve",
+      "A fluid that lubricates and cushions",
+      "A heat absorber and a source of evaporative cooling",
+      "A substance consumed during hydrolysis",
+      "A building block that is an amino acid"
+    ]
+  ],
+  "179": [
+    [
+      "hydrogen ions, H⁺",
+      "hydroxide ions, OH⁻",
+      "sodium ions alone",
+      "electrons alone"
+    ]
+  ],
+  "180": [
+    [
+      "taking up H⁺ from the solution",
+      "giving off only H⁺ into the solution",
+      "increasing the neutron count",
+      "eliminating all the water"
+    ],
+    [
+      "binding hydrogen ions already present in solution",
+      "introducing only additional hydrogen ions into solution",
+      "adding electrically neutral particles to atomic nuclei",
+      "taking every water molecule out of the solution"
+    ]
+  ],
+  "181": [
+    [
+      "separates into ions almost completely when dissolved",
+      "has no hydrogen atoms",
+      "has a pH of seven in every case",
+      "is unable to react with a base"
+    ]
+  ],
+  "182": [
+    [
+      "neither acidic nor basic on the classroom reference scale",
+      "highly acidic",
+      "highly basic",
+      "emitting radiation from unstable nuclei"
+    ]
+  ],
+  "183": [
+    [
+      "tenfold more hydrogen ions per volume",
+      "half as many hydrogen ions per volume",
+      "one hundredfold fewer hydrogen ions per volume",
+      "an unchanged hydrogen-ion concentration"
+    ]
+  ],
+  "184": [
+    [
+      "one hundredfold more hydrogen ions per volume",
+      "tenfold more hydrogen ions per volume",
+      "twice as many hydrogen ions per volume",
+      "one hundredfold fewer hydrogen ions per volume"
+    ]
+  ],
+  "185": [
+    [
+      "The solution at pH four",
+      "The solution at pH six",
+      "Both have the same acidity",
+      "There is not enough information to compare them"
+    ]
+  ],
+  "186": [
+    [
+      "About 7.35 to 7.45",
+      "About 5.0 to 5.5",
+      "About 6.0 to 6.2",
+      "About 8.5 to 9.0"
+    ]
+  ],
+  "187": [
+    [
+      "taking up and binding extra hydrogen ions",
+      "adding still more hydrogen ions and doing nothing else",
+      "taking bicarbonate away",
+      "changing water into glucose"
+    ]
+  ],
+  "188": [
+    [
+      "supplying hydrogen ions to the solution",
+      "taking away all acidic substances",
+      "changing ATP into DNA",
+      "removing every water molecule"
+    ]
+  ],
+  "189": [
+    [
+      "a little more alkaline than the stated normal blood range",
+      "highly acidic",
+      "neutral on the pH scale",
+      "inside the stated normal blood range"
+    ]
+  ],
+  "190": [
+    [
+      "H⁺ and Cl⁻ carried in gastric acid",
+      "every protein in blood plasma",
+      "the oxygen carried on hemoglobin",
+      "the glycogen stored in muscles"
+    ]
+  ],
+  "191": [
+    [
+      "excessively acidic relative to normal",
+      "excessively alkaline relative to normal",
+      "invariably at a pH of exactly seven",
+      "completely without hydrogen ions"
+    ]
+  ],
+  "192": [
+    [
+      "excessively alkaline relative to normal",
+      "excessively acidic relative to normal",
+      "invariably neutral",
+      "completely without buffer substances"
+    ]
+  ],
+  "193": [
+    [
+      "carbon together with hydrogen",
+      "carbon with hydrogen always absent",
+      "hydrogen with carbon always absent",
+      "no shared-electron bonds"
+    ]
+  ],
+  "194": [
+    [
+      "Carbon dioxide",
+      "The sugar glucose",
+      "A triglyceride fat",
+      "Deoxyribonucleic acid"
+    ]
+  ],
+  "195": [
+    [
+      "forms covalent bonds by sharing electrons",
+      "gives up every one of its four valence electrons",
+      "takes in four protons",
+      "makes ionic bonds exclusively"
+    ]
+  ],
+  "196": [
+    [
+      "one building unit that can be linked into a larger chain",
+      "an entire functioning organ",
+      "an ion carrying two electrical charges",
+      "a friction-reducing serous membrane"
+    ]
+  ],
+  "197": [
+    [
+      "splitting bonds with water",
+      "building bonds while releasing water",
+      "amplifying an initial physiological change",
+      "formation of ions alone"
+    ]
+  ],
+  "198": [
+    [
+      "forming bonds while releasing water",
+      "splitting bonds with water",
+      "particles settling out of a mixture",
+      "resisting changes in pH"
+    ]
+  ],
+  "199": [
+    [
+      "individual sugar units",
+      "fatty-acid units",
+      "amino-acid units",
+      "nucleotide units"
+    ]
+  ],
+  "200": [
+    [
+      "single sugar units containing six carbons each",
+      "pairs of linked sugar units",
+      "fat-related molecules",
+      "protein-building amino acids"
+    ]
+  ],
+  "201": [
+    [
+      "sugars containing five carbons",
+      "fatty-acid chains",
+      "amino-acid polymers",
+      "ring-structured steroid molecules"
+    ]
+  ],
+  "202": [
+    [
+      "sugars formed from two linked sugar units",
+      "chains made of many sugar units",
+      "individual protein-building units",
+      "sugar-base-phosphate units"
+    ]
+  ],
+  "203": [
+    [
+      "the animal storage carbohydrate glycogen",
+      "the plant structural carbohydrate cellulose",
+      "plant starch alone",
+      "the sterol cholesterol"
+    ]
+  ],
+  "204": [
+    [
+      "the dietary fiber cellulose",
+      "the storage polymer glycogen",
+      "the two-unit sugar maltose",
+      "the two-unit sugar lactose"
+    ]
+  ],
+  "205": [
+    [
+      "a glucose-chain reserve in plants",
+      "the form used by animals to store glucose",
+      "an amino-acid polymer",
+      "a steroid lipid"
+    ]
+  ],
+  "206": [
+    [
+      "individual sugar units",
+      "individual amino acids",
+      "fatty acids and glycerol exclusively",
+      "the two strands of DNA"
+    ]
+  ],
+  "207": [
+    [
+      "one glycerol joined to three fatty acids",
+      "one glycerol joined to two fatty acids and a phosphate group",
+      "three amino acids combined with glycerol",
+      "one ribose sugar combined with three phosphate groups"
+    ],
+    [
+      "a glycerol backbone carrying three fatty-acid chains",
+      "a glycerol backbone carrying two fatty-acid chains and phosphate",
+      "glycerol combined with three amino-acid units",
+      "ribose combined with three phosphate groups"
+    ]
+  ],
+  "208": [
+    [
+      "one glycerol with two fatty acids and a phosphate-bearing group",
+      "only one glycerol with three fatty acids",
+      "only a group of four connected rings",
+      "a five-carbon sugar joined to a base"
+    ],
+    [
+      "a glycerol backbone with two fatty-acid tails and a phosphate-containing head",
+      "a glycerol backbone with three fatty-acid tails and no other component",
+      "a structure made solely of four fused rings",
+      "a nitrogenous base attached to a five-carbon sugar"
+    ]
+  ],
+  "209": [
+    [
+      "a water-interacting polar part and water-avoiding nonpolar parts",
+      "positively charged regions and no other regions",
+      "carbohydrate chains and no other components",
+      "no water-avoiding part"
+    ]
+  ],
+  "210": [
+    [
+      "relatively unbent chains",
+      "bent at carbon–carbon double bonds",
+      "chains of amino-acid units",
+      "chains of nucleotide units"
+    ]
+  ],
+  "211": [
+    [
+      "bent at the locations of their double bonds",
+      "perfectly unbent in every case",
+      "joined with peptide bonds",
+      "proteins that dissolve in water"
+    ]
+  ],
+  "212": [
+    [
+      "hydrocarbon frameworks arranged as rings",
+      "three fatty-acid tails joined to a glycerol",
+      "lengthy chains of amino acids",
+      "alternating sugar and phosphate backbones"
+    ]
+  ],
+  "213": [
+    [
+      "fatty acids that are unsaturated",
+      "amino acids and no other source",
+      "the nucleotide units of DNA",
+      "stored glucose in glycogen"
+    ]
+  ],
+  "214": [
+    [
+      "Animal tissues store glucose in glycogen.",
+      "A triglyceride includes three fatty-acid tails.",
+      "A phosphate-containing group is part of a phospholipid.",
+      "Human digestive enzymes easily break down cellulose.",
+      "Carbon–carbon double bonds can occur in unsaturated fatty acids."
+    ]
+  ],
+  "215": [
+    [
+      "individual amino acids",
+      "single sugar units",
+      "fatty-acid chains",
+      "nucleotide units"
+    ]
+  ],
+  "216": [
+    [
+      "one amino acid to another",
+      "one single sugar to another",
+      "one fatty acid to another",
+      "one phosphate group to another"
+    ]
+  ],
+  "217": [
+    [
+      "the order of amino acids in the chain",
+      "an alpha-helical coil and nothing else",
+      "an assembly of multiple chains and nothing else",
+      "the disruption of the protein's shape"
+    ]
+  ],
+  "218": [
+    [
+      "a local secondary folding pattern",
+      "the primary amino-acid order",
+      "an exclusively quaternary arrangement",
+      "disruption of the protein's shape"
+    ]
+  ],
+  "219": [
+    [
+      "the overall three-dimensional shape of a single polypeptide chain",
+      "the ordering of bases in DNA",
+      "the joining of two single sugar units",
+      "a region of electrons around a nucleus"
+    ]
+  ],
+  "220": [
+    [
+      "at least two folded polypeptide chains associate",
+      "a single amino acid attaches to a sugar",
+      "the protein becomes completely unfolded",
+      "an atom acquires an additional electron"
+    ]
+  ],
+  "221": [
+    [
+      "three-dimensional form",
+      "number identifying its element",
+      "count of protons",
+      "status as a substance with mass and volume"
+    ]
+  ],
+  "222": [
+    [
+      "an assembly of multiple polypeptide subunits",
+      "amino-acid sequence with no higher organization",
+      "a molecule containing no amino acids",
+      "a backbone composed of carbohydrate"
+    ]
+  ],
+  "223": [
+    [
+      "an amino functional group and a carboxyl functional group",
+      "three fatty-acid tails plus phosphate",
+      "ribose sugar plus thymine",
+      "carbon and hydrogen, with no other elements"
+    ]
+  ],
+  "224": [
+    [
+      "variable side chain, also called the R-group",
+      "shared amino functional group",
+      "shared carboxyl functional group",
+      "central carbon atom"
+    ]
+  ],
+  "225": [
+    [
+      "Proteins are constructed from amino-acid units.",
+      "Amino acids are joined to one another by peptide bonds.",
+      "Amino-acid order defines a protein's primary structure.",
+      "Sufficiently high heat can disrupt a protein's shape.",
+      "Every protein belongs to the triglyceride class."
+    ]
+  ],
+  "226": [
+    [
+      "a five-carbon sugar, a nitrogenous base, and at least one phosphate group",
+      "a glycerol attached to three fatty acids",
+      "just an amino functional group",
+      "a pair of single sugar units"
+    ]
+  ],
+  "227": [
+    [
+      "the sugar deoxyribose",
+      "the sugar ribose",
+      "the sugar glucose",
+      "the sugar fructose"
+    ]
+  ],
+  "228": [
+    [
+      "the sugar ribose",
+      "the sugar deoxyribose",
+      "the sugar glucose",
+      "the sugar galactose"
+    ]
+  ],
+  "229": [
+    [
+      "the base thymine",
+      "the base uracil",
+      "the base adenine",
+      "the base guanine"
+    ]
+  ],
+  "230": [
+    [
+      "the base uracil",
+      "the base thymine",
+      "the base adenine",
+      "the base cytosine"
+    ]
+  ],
+  "231": [
+    [
+      "attractions called hydrogen bonds",
+      "links called peptide bonds",
+      "ionic attractions exclusively",
+      "sugar-type bonds connecting amino acids"
+    ]
+  ],
+  "232": [
+    [
+      "the base adenine, the sugar ribose, and three phosphates",
+      "deoxyribose sugar, thymine, and three fatty acids",
+      "glycerol with two phosphate groups",
+      "glucose with four phosphate groups"
+    ]
+  ],
+  "233": [
+    [
+      "ADP, inorganic phosphate, and a net release of usable energy",
+      "DNA together with RNA",
+      "three individual amino acids",
+      "a glycerol-based fat with three fatty acids"
+    ]
+  ],
+  "234": [
+    [
+      "attaching phosphate to an organic molecule",
+      "stripping ATP of all its phosphate groups",
+      "splitting a bond between amino acids",
+      "creating an ion by removing a neutron"
+    ]
+  ],
+  "235": [
+    [
+      "two strands twisted into a helix",
+      "one triglyceride molecule",
+      "a beta-pleated sheet and nothing else",
+      "a dispersed-particle colloid"
+    ]
+  ],
+  "236": [
+    [
+      "the protein-building ribosomes in the cytoplasm",
+      "the space associated with a lung",
+      "the mineral part of bone",
+      "fatty-acid molecules"
+    ]
+  ],
+  "237": [
+    [
+      "bases in the purine group",
+      "bases in the pyrimidine group",
+      "fatty-acid molecules",
+      "amino-acid molecules"
+    ]
+  ],
+  "238": [
+    [
+      "bases in the pyrimidine group",
+      "bases in the purine group",
+      "glycerol-based fats with three fatty acids",
+      "amino-acid polymers"
+    ]
+  ],
+  "239": [
+    [
+      "Deoxyribose is the sugar used in DNA.",
+      "Ribose is the sugar used in RNA.",
+      "Thymine is a base used in DNA.",
+      "Uracil is a base used in RNA.",
+      "Three phosphate groups are present in ATP."
+    ]
+  ]
+};
+function canonicalChoice(q,index){
+  const original=BANK.find(item=>item.id===q.id);
+  const id=q.optionIds?.[index];
+  return original&&Number.isInteger(id)&&id>=0&&id<original.options.length?original.options[id]:q.options[index];
+}
+function applyAnswerWording(q,previous){
+  const original=BANK.find(item=>item.id===q.id),alternates=ANSWER_VARIANTS[q.id];
+  if(!original||!alternates)return q;
+  const versions=[original.options,...alternates];
+  // Old saved exams predate alternate wording and therefore use version zero.
+  const last=previous?(Number.isInteger(previous.variant)?previous.variant:0):-1;
+  const available=versions.map((_,i)=>i).filter(i=>i!==last);
+  const variant=available[Math.floor(Math.random()*available.length)];
+  q.options=q.optionIds.map(id=>versions[variant][id]);
+  q.variant=variant;
+  return q;
+}
 function randomizeQuestion(q) {
   const perm=shuffle(q.options.map((_,i)=>i));
   const nq=JSON.parse(JSON.stringify(q));
   nq.options=perm.map(i=>q.options[i]);
+  nq.optionIds=perm.map(i=>q.optionIds?.[i]??i);
   nq.answer=q.answer.map(old=>perm.indexOf(old)).sort((a,b)=>a-b);
   return nq;
 }
@@ -9173,7 +11165,7 @@ function loadChoiceHistory(){
   try{const saved=JSON.parse(localStorage.getItem(LS_ORDER)||'{}');if(saved&&typeof saved==='object'&&!Array.isArray(saved))history=saved;}catch{}
   // Upgrade an existing saved exam without moving any of its answers.
   try{const saved=JSON.parse(localStorage.getItem(LS_SESSION)||'null');
-    for(const q of saved?.questions||[])if(Array.isArray(q.options)&&Array.isArray(q.answer))history[q.id]={options:q.options,answer:q.answer};
+    for(const q of saved?.questions||[])if(Array.isArray(q.options)&&Array.isArray(q.answer))history[q.id]={options:q.options,answer:q.answer,optionIds:q.optionIds,variant:q.variant};
   }catch{}
   return history;
 }
@@ -9181,6 +11173,7 @@ let choiceHistory=loadChoiceHistory();
 function randomizeExamQuestion(q){
   const next=randomizeQuestion(q),previous=choiceHistory[q.id];
   if(previous&&Array.isArray(previous.answer)&&Array.isArray(previous.options)&&previous.options.length===next.options.length){
+    const previousIds=previous.optionIds||previous.options.map(text=>q.options.indexOf(text));
     let a=-1,b=-1;
     if(next.answer.length>0&&next.answer.length<next.options.length&&exact(next.answer,previous.answer)){
       // Move one correct choice to a randomly chosen incorrect slot. This changes
@@ -9188,7 +11181,7 @@ function randomizeExamQuestion(q){
       const wrong=next.options.map((_,i)=>i).filter(i=>!next.answer.includes(i));
       a=next.answer[Math.floor(Math.random()*next.answer.length)];
       b=wrong[Math.floor(Math.random()*wrong.length)];
-    }else if(next.options.length>1&&next.options.every((text,i)=>text===previous.options[i])){
+    }else if(next.options.length>1&&next.optionIds.every((id,i)=>id===previousIds[i])){
       // An all-correct question cannot change its correct-letter set, but its
       // statement order can still change.
       a=Math.floor(Math.random()*next.options.length);
@@ -9197,10 +11190,12 @@ function randomizeExamQuestion(q){
     }
     if(a>=0){
       [next.options[a],next.options[b]]=[next.options[b],next.options[a]];
+      [next.optionIds[a],next.optionIds[b]]=[next.optionIds[b],next.optionIds[a]];
       next.answer=next.answer.map(i=>i===a?b:i===b?a:i).sort((x,y)=>x-y);
     }
   }
-  choiceHistory[q.id]={options:[...next.options],answer:[...next.answer]};
+  applyAnswerWording(next,previous);
+  choiceHistory[q.id]={options:[...next.options],answer:[...next.answer],optionIds:[...next.optionIds],variant:next.variant};
   return next;
 }
 const modeNames={full:"Full Mock Exam",weak:"Weak Spot Drill",mistakes:"Mistakes Only",ch1:"Chapter 1 Only",ch2:"Chapter 2 Only",electron:"Electron Shell Boot Camp"};
@@ -9383,14 +11378,15 @@ function textbookLinkHTML(ref){
 }
 function teachingNote(d){
   const q=d.q, user=d.user||[], correct=new Set(q.answer), chosen=new Set(user), lesson=lessonFor(q);
+  const canonical=new Map(q.options.map((text,i)=>[text,canonicalChoice(q,i)]));
   const omitted=q.answer.filter(i=>!chosen.has(i)).map(i=>q.options[i]);
   const incorrect=user.filter(i=>!correct.has(i)).map(i=>q.options[i]);
   const feedback=[
     ...omitted.map(text=>({text,kind:user.length?'Missed correct choice':'Correct choice to learn'})),
     ...incorrect.map(text=>({text,kind:'Incorrectly selected'}))
-  ].map(item=>({...item,explanation:lesson.choiceFeedback?.[item.text]||q.explanation}));
+  ].map(item=>({...item,explanation:lesson.choiceFeedback?.[canonical.get(item.text)]||q.explanation}));
   const sections=(q.type==='multi'&&feedback.length&&lesson.choiceLessons
-    ? feedback.map(item=>({title:item.kind+': '+item.text,...lesson.choiceLessons[item.text]}))
+    ? feedback.map(item=>({title:item.kind+': '+item.text,...lesson.choiceLessons[canonical.get(item.text)]}))
     : [lesson]).map(section=>({...section,textbook:textbookFor(q)}));
   let diagnosis;
   if(!user.length) diagnosis='This question was unanswered; there is no selected answer from which to infer a misconception.';
@@ -9481,7 +11477,7 @@ function studyNotesText(){
 // Related practice stays separate from the scored exam and never writes mastery or session data.
 let conceptPractice=null, studyTrigger=null;
 function relatedQuestions(q,count=3){
-  return shuffle(BANK.filter(candidate=>candidate.concept===q.concept&&candidate.id!==q.id)).slice(0,count).map(randomizeQuestion);
+  return shuffle(BANK.filter(candidate=>candidate.concept===q.concept&&candidate.id!==q.id)).slice(0,count).map(item=>applyAnswerWording(randomizeQuestion(item)));
 }
 function studyConcept(id,trigger){
   const q=BANK.find(item=>item.id===id);if(!q)return;

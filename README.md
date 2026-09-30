@@ -23,7 +23,7 @@ Practice anatomy fundamentals and introductory chemistry with randomized exams, 
 ## ✨ Study with purpose
 
 - **239 questions across 20 concepts:** 105 Chapter 1 questions and 134 Chapter 2 questions, including single-answer and select-all-that-apply formats.
-- **Three layers of randomization:** question selection, question order, and answer-choice order.
+- **Four layers of variation:** question selection, question order, answer-choice order, and curated alternate answer wording.
 - **Two views of performance:** strict exam scoring and partial concept credit.
 - **Useful feedback:** missed and partial answers, correct answers, explanations, and a full review tab.
 - **Targeted follow-up:** concept mastery, weak-spot practice, personalized notes, and memory hooks.
@@ -62,6 +62,12 @@ The sampler distributes questions across available concept groups, shuffling wit
 For a question that reappears in a new exam, the app remembers its last generated layout in this browser and prevents the same correct-answer letter or select-all letter set from repeating consecutively. If every choice is correct, the statement order changes instead. Resuming an unfinished exam preserves its question order, choices, and selected answers. Unscored related practice continues to shuffle independently without altering exam history. Reset progress also clears this layout history.
 
 Questions do not repeat within an attempt. They can reappear across attempts, and a new attempt is not guaranteed to contain entirely new questions. The goal is to recognize the underlying idea wherever its answer appears.
+
+## Recognize the idea, not the phrase
+
+Every question has an alternate set of answer wording; several high-confusion questions have a third version. Both correct choices and distractors vary together, while technical names and scientific meaning remain intact. New scored attempts avoid reusing the previous wording version for a repeated question in this browser. Related unscored practice also draws from the available wordings.
+
+These are curated local variants, not live AI-generated answers. Stable option identities keep scoring, targeted explanations, and textbook links connected to the underlying answer even when its text and letter change. Saved exams retain their exact wording when resumed. Reset progress clears wording and position history together.
 
 ## Scoring that distinguishes recall from understanding
 

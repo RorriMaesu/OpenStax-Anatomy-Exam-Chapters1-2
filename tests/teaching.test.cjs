@@ -15,7 +15,7 @@ function app() {
   const context = vm.createContext({document:{getElementById:node,querySelectorAll:()=>[]},
     localStorage:{getItem:k=>storage.get(k)||null,setItem:(k,v)=>storage.set(k,v),removeItem:k=>storage.delete(k)},
     window:{scrollTo(){}},console,Set,Map,JSON,Math});
-  vm.runInContext(source + `\nglobalThis.api={randomizeExamQuestion,loadChoiceHistory,textbookFor,TEXTBOOK_SECTIONS,resetProgress,BANK,randomizeQuestion,buildExam,exact,partialScore,teachingNote,lessonFor,relatedQuestions,personalizedNotes,notesHTML,reviewHTML,studyNotesText,
+  vm.runInContext(source + `\nglobalThis.api={canonicalChoice,applyAnswerWording,ANSWER_VARIANTS,randomizeExamQuestion,loadChoiceHistory,textbookFor,TEXTBOOK_SECTIONS,resetProgress,BANK,randomizeQuestion,buildExam,exact,partialScore,teachingNote,lessonFor,relatedQuestions,personalizedNotes,notesHTML,reviewHTML,studyNotesText,
     setResults:details=>lastResults={details,total:details.length,strict:details.filter(d=>d.strict).length,points:details.reduce((a,d)=>a+d.points,0)}};`, context);
   context.api.storage=storage;
   context.api.seedLearning=()=>vm.runInContext("stats={test:{points:1,total:2}};missed=new Set([180]);session={mode:'full'};lastResults={total:1};saveStats();persistSession();",context);
@@ -179,7 +179,7 @@ test('repeat exams move correct positions for every question and retain correct 
       const next=a.randomizeExamQuestion(source);
       assert.notDeepEqual(plain(next.options),plain(previous.options),`layout ${source.id}`);
       if(source.answer.length<source.options.length)assert.notDeepEqual(plain(next.answer),plain(previous.answer),`correct slots ${source.id}`);
-      assert.deepEqual(plain(next.answer.map(i=>next.options[i])).sort(),plain(source.answer.map(i=>source.options[i])).sort());
+      assert.deepEqual(plain(next.answer.map(i=>a.canonicalChoice(next,i))).sort(),plain(source.answer.map(i=>source.options[i])).sort());
       previous=next;
     }
   }
@@ -190,7 +190,46 @@ test('exam layouts persist and an old saved session seeds layout history',()=>{
   for(const q of exam.questions)assert.deepEqual(stored[q.id].answer,plain(q.answer));
   const old=exam.questions[0];a.storage.delete('ap_v2_choice_history');
   a.storage.set('ap_v2_session',JSON.stringify({questions:[old]}));
-  assert.deepEqual(plain(a.loadChoiceHistory()[old.id]),{options:plain(old.options),answer:plain(old.answer)});
+  assert.deepEqual(plain(a.loadChoiceHistory()[old.id]),{options:plain(old.options),answer:plain(old.answer),optionIds:plain(old.optionIds),variant:old.variant});
   a.storage.set('ap_v2_choice_history','invalid JSON');
   assert.ok(a.loadChoiceHistory()[old.id]);
+});
+
+
+test('curated variants cover every option and preserve the original correct choice identities',()=>{
+  const a=app();
+  assert.equal(Object.keys(a.ANSWER_VARIANTS).length,239);
+  for(const source of a.BANK){
+    for(const words of a.ANSWER_VARIANTS[source.id]){
+      assert.equal(words.length,source.options.length);
+      assert.equal(new Set(words).size,words.length);
+      assert.ok(words.every(text=>typeof text==='string'&&text.trim().length));
+    }
+    let previous=a.randomizeExamQuestion(source);
+    for(let attempt=0;attempt<12;attempt++){
+      const q=a.randomizeExamQuestion(source);
+      assert.notEqual(q.variant,previous.variant);
+      assert.notDeepEqual(plain(q.optionIds),plain(previous.optionIds));
+      assert.deepEqual(plain(q.answer.map(i=>q.optionIds[i])).sort((x,y)=>x-y),plain(source.answer).sort((x,y)=>x-y));
+      for(let i=0;i<q.options.length;i++){
+        const n=a.teachingNote(detail(a,q,[i]));
+        for(const feedback of n.feedback){
+          const index=q.options.indexOf(feedback.text);
+          assert.equal(feedback.explanation,source.lesson.choiceFeedback[a.canonicalChoice(q,index)]);
+        }
+        assert.ok(n.sections.every(s=>s.explanation&&s.textbook));
+      }
+      previous=q;
+    }
+  }
+});
+test('variant wording appears in notes while its canonical choice drives targeted teaching',()=>{
+  const a=app(),source=a.BANK.find(q=>q.id===180);
+  const q=a.applyAnswerWording(a.randomizeQuestion(source),{variant:0});
+  const index=q.optionIds.indexOf(1);
+  a.setResults([detail(a,q,[index])]);
+  assert.ok(a.studyNotesText().includes(q.options[index]));
+  assert.match(a.personalizedNotes()[0].diagnosis,/increases acidity/);
+  const legacy=a.randomizeQuestion(source);delete legacy.optionIds;
+  assert.equal(a.canonicalChoice(legacy,0),legacy.options[0]);
 });
