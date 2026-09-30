@@ -59,6 +59,8 @@ Lessons explain possible misconceptions without claiming to know a student's tho
 
 The sampler distributes questions across available concept groups, shuffling within and between groups. Full Mock Exam applies that process separately to each chapter. The selected questions are then shuffled, and every question’s choices are shuffled with its correct-answer indices remapped to match.
 
+For a question that reappears in a new exam, the app remembers its last generated layout in this browser and prevents the same correct-answer letter or select-all letter set from repeating consecutively. If every choice is correct, the statement order changes instead. Resuming an unfinished exam preserves its question order, choices, and selected answers. Unscored related practice continues to shuffle independently without altering exam history. Reset progress also clears this layout history.
+
 Questions do not repeat within an attempt. They can reappear across attempts, and a new attempt is not guaranteed to contain entirely new questions. The goal is to recognize the underlying idea wherever its answer appears.
 
 ## Scoring that distinguishes recall from understanding

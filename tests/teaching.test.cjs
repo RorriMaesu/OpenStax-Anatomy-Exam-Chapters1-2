@@ -15,7 +15,7 @@ function app() {
   const context = vm.createContext({document:{getElementById:node,querySelectorAll:()=>[]},
     localStorage:{getItem:k=>storage.get(k)||null,setItem:(k,v)=>storage.set(k,v),removeItem:k=>storage.delete(k)},
     window:{scrollTo(){}},console,Set,Map,JSON,Math});
-  vm.runInContext(source + `\nglobalThis.api={textbookFor,TEXTBOOK_SECTIONS,resetProgress,BANK,randomizeQuestion,buildExam,exact,partialScore,teachingNote,lessonFor,relatedQuestions,personalizedNotes,notesHTML,reviewHTML,studyNotesText,
+  vm.runInContext(source + `\nglobalThis.api={randomizeExamQuestion,loadChoiceHistory,textbookFor,TEXTBOOK_SECTIONS,resetProgress,BANK,randomizeQuestion,buildExam,exact,partialScore,teachingNote,lessonFor,relatedQuestions,personalizedNotes,notesHTML,reviewHTML,studyNotesText,
     setResults:details=>lastResults={details,total:details.length,strict:details.filter(d=>d.strict).length,points:details.reduce((a,d)=>a+d.points,0)}};`, context);
   context.api.storage=storage;
   context.api.seedLearning=()=>vm.runInContext("stats={test:{points:1,total:2}};missed=new Set([180]);session={mode:'full'};lastResults={total:1};saveStats();persistSession();",context);
@@ -138,10 +138,11 @@ test('related practice stays within concept and excludes the original question',
 test('reset clears only app learning data and in-memory results',()=>{
   const a=app();
   a.seedLearning();
+  a.buildExam('full');
   a.storage.set('unrelated_app','keep');
   a.storage.set('ap_v2_motion','paused');
   a.resetProgress();
-  for(const key of ['ap_v2_stats','ap_v2_missed','ap_v2_session'])assert.equal(a.storage.has(key),false);
+  for(const key of ['ap_v2_stats','ap_v2_missed','ap_v2_session','ap_v2_choice_history'])assert.equal(a.storage.has(key),false);
   assert.equal(a.storage.get('unrelated_app'),'keep');
   assert.equal(a.storage.get('ap_v2_motion'),'paused');
   assert.deepEqual(plain(a.learningState()),{stats:{},missed:[],session:null,lastResults:null});
@@ -167,4 +168,29 @@ test('every question has a Chapter 1/2 reading link in teaching and downloads',(
   const q=a.randomizeQuestion(a.BANK.find(q=>q.id===138));delete q.lesson;
   a.setResults([detail(a,q,q.answer.slice(1))]);
   assert.ok(a.notesHTML().includes(a.textbookFor(q).url));
+});
+
+
+test('repeat exams move correct positions for every question and retain correct answer text',()=>{
+  const a=app();
+  for(const source of a.BANK){
+    let previous=a.randomizeExamQuestion(source);
+    for(let attempt=0;attempt<30;attempt++){
+      const next=a.randomizeExamQuestion(source);
+      assert.notDeepEqual(plain(next.options),plain(previous.options),`layout ${source.id}`);
+      if(source.answer.length<source.options.length)assert.notDeepEqual(plain(next.answer),plain(previous.answer),`correct slots ${source.id}`);
+      assert.deepEqual(plain(next.answer.map(i=>next.options[i])).sort(),plain(source.answer.map(i=>source.options[i])).sort());
+      previous=next;
+    }
+  }
+});
+test('exam layouts persist and an old saved session seeds layout history',()=>{
+  const a=app(),exam=a.buildExam('electron');
+  const stored=JSON.parse(a.storage.get('ap_v2_choice_history'));
+  for(const q of exam.questions)assert.deepEqual(stored[q.id].answer,plain(q.answer));
+  const old=exam.questions[0];a.storage.delete('ap_v2_choice_history');
+  a.storage.set('ap_v2_session',JSON.stringify({questions:[old]}));
+  assert.deepEqual(plain(a.loadChoiceHistory()[old.id]),{options:plain(old.options),answer:plain(old.answer)});
+  a.storage.set('ap_v2_choice_history','invalid JSON');
+  assert.ok(a.loadChoiceHistory()[old.id]);
 });
