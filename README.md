@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🧠 A&P Chapters 1–2 Exam Trainer
+# ATLAS · A&P Chapters 1–2 Exam Trainer
 
 **Understand the concepts. Build confidence. Stop memorizing answer positions.**
 
@@ -16,7 +16,7 @@ An independent, browser-based study companion for **OpenStax Anatomy & Physiolog
 
 </div>
 
-![Live exam trainer home screen with six study modes and magnesium lesson](docs/images/exam-trainer-home.png)
+![Atlas exam trainer home screen with six study modes and magnesium lesson](docs/images/exam-trainer-home.png)
 
 Practice anatomy fundamentals and introductory chemistry with randomized exams, clear answer explanations, and study notes selected from the concepts you missed. Everything runs in one self-contained HTML file.
 
@@ -71,11 +71,19 @@ Questions do not repeat within an attempt. They can reappear across attempts, an
 
 The home screen illustrates neutral magnesium as **2 | 8 | 2**, then shows **Mg²⁺ as 2 | 8** after it loses two electrons. The accompanying explanation distinguishes the outermost *occupied* shell from an empty shell and treats eight electrons as a common stable destination in the chapter’s simplified model. Boot Camp and the related notes reinforce valence, ions, and electron loss/gain.
 
+## An anatomy atlas, brought to life
+
+The interface pairs warm ivory, forest green, and copper with editorial typography and an original animated anatomical illustration. Breathing lungs, a pulsing heart, an ECG-inspired trace, electron movement, and subtle transitions bring the study environment to life. These visuals are illustrative, not diagnostic models.
+
+Use **Pause motion** in the header to stop animation; your preference is saved. System reduced-motion settings are respected automatically. The responsive layout adapts the dashboard, exams, lessons, and dialogs to mobile screens. No external fonts, animation libraries, or network assets are required.
+
 ## Your progress stays in this browser
 
 The app uses `localStorage` for concept statistics, missed question IDs, and an in-progress exam. It has no backend, account system, or cross-device synchronization. The app does not send your answers to a server.
 
 Progress is specific to this browser profile and site origin. Clearing site data removes it; private browsing may discard it when closed. Progress from a locally opened file does not automatically transfer to the live site. Allow browser storage for saving and resuming. Completed result details are held only for the current page session, so download notes before closing or reloading.
+
+To start fresh, choose **Reset progress** in the header, then **Yes, reset progress**. This deletes this trainer's concept mastery, missed-question history, saved exam, and current results in this browser. **Keep my progress** or Escape cancels without changes. Reset cannot be undone; it preserves your motion preference and unrelated browser data.
 
 ## How to use
 

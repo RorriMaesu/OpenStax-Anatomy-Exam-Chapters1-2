@@ -15,8 +15,11 @@ function app() {
   const context = vm.createContext({document:{getElementById:node,querySelectorAll:()=>[]},
     localStorage:{getItem:k=>storage.get(k)||null,setItem:(k,v)=>storage.set(k,v),removeItem:k=>storage.delete(k)},
     window:{scrollTo(){}},console,Set,Map,JSON,Math});
-  vm.runInContext(source + `\nglobalThis.api={BANK,randomizeQuestion,buildExam,exact,partialScore,teachingNote,lessonFor,relatedQuestions,personalizedNotes,notesHTML,reviewHTML,studyNotesText,
+  vm.runInContext(source + `\nglobalThis.api={resetProgress,BANK,randomizeQuestion,buildExam,exact,partialScore,teachingNote,lessonFor,relatedQuestions,personalizedNotes,notesHTML,reviewHTML,studyNotesText,
     setResults:details=>lastResults={details,total:details.length,strict:details.filter(d=>d.strict).length,points:details.reduce((a,d)=>a+d.points,0)}};`, context);
+  context.api.storage=storage;
+  context.api.seedLearning=()=>vm.runInContext("stats={test:{points:1,total:2}};missed=new Set([180]);session={mode:'full'};lastResults={total:1};saveStats();persistSession();",context);
+  context.api.learningState=()=>vm.runInContext("({stats,missed:[...missed],session,lastResults})",context);
   return context.api;
 }
 const plain = value => JSON.parse(JSON.stringify(value));
@@ -130,4 +133,16 @@ test('related practice stays within concept and excludes the original question',
     assert.ok(related.every(other=>other.id!==q.id&&other.concept===q.concept));
     assert.equal(new Set(related.map(other=>other.id)).size,related.length);
   }
+});
+
+test('reset clears only app learning data and in-memory results',()=>{
+  const a=app();
+  a.seedLearning();
+  a.storage.set('unrelated_app','keep');
+  a.storage.set('ap_v2_motion','paused');
+  a.resetProgress();
+  for(const key of ['ap_v2_stats','ap_v2_missed','ap_v2_session'])assert.equal(a.storage.has(key),false);
+  assert.equal(a.storage.get('unrelated_app'),'keep');
+  assert.equal(a.storage.get('ap_v2_motion'),'paused');
+  assert.deepEqual(plain(a.learningState()),{stats:{},missed:[],session:null,lastResults:null});
 });
