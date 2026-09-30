@@ -15,7 +15,7 @@ function app() {
   const context = vm.createContext({document:{getElementById:node,querySelectorAll:()=>[]},
     localStorage:{getItem:k=>storage.get(k)||null,setItem:(k,v)=>storage.set(k,v),removeItem:k=>storage.delete(k)},
     window:{scrollTo(){}},console,Set,Map,JSON,Math});
-  vm.runInContext(source + `\nglobalThis.api={resetProgress,BANK,randomizeQuestion,buildExam,exact,partialScore,teachingNote,lessonFor,relatedQuestions,personalizedNotes,notesHTML,reviewHTML,studyNotesText,
+  vm.runInContext(source + `\nglobalThis.api={textbookFor,TEXTBOOK_SECTIONS,resetProgress,BANK,randomizeQuestion,buildExam,exact,partialScore,teachingNote,lessonFor,relatedQuestions,personalizedNotes,notesHTML,reviewHTML,studyNotesText,
     setResults:details=>lastResults={details,total:details.length,strict:details.filter(d=>d.strict).length,points:details.reduce((a,d)=>a+d.points,0)}};`, context);
   context.api.storage=storage;
   context.api.seedLearning=()=>vm.runInContext("stats={test:{points:1,total:2}};missed=new Set([180]);session={mode:'full'};lastResults={total:1};saveStats();persistSession();",context);
@@ -145,4 +145,26 @@ test('reset clears only app learning data and in-memory results',()=>{
   assert.equal(a.storage.get('unrelated_app'),'keep');
   assert.equal(a.storage.get('ap_v2_motion'),'paused');
   assert.deepEqual(plain(a.learningState()),{stats:{},missed:[],session:null,lastResults:null});
+});
+
+test('every question has a Chapter 1/2 reading link in teaching and downloads',()=>{
+  const a=app();
+  for(const original of a.BANK){
+    const q=a.randomizeQuestion(original),ref=a.textbookFor(q);
+    assert.ok(ref,`reading for ${q.id}`);
+    assert.equal(new URL(ref.url).hostname,'openstax.org');
+    assert.match(ref.url,/anatomy-and-physiology-2e\/pages\/[12]-[1-7]-/);
+    assert.equal(Number(ref.section[0]),q.chapter);
+    const d=detail(a,q,[]);a.setResults([d]);
+    for(const section of a.teachingNote(d).sections)assert.equal(section.textbook.url,ref.url);
+    assert.ok(a.notesHTML().includes(ref.url));
+    assert.ok(a.notesHTML().includes('target="_blank" rel="noopener noreferrer"'));
+    assert.ok(a.studyNotesText().includes(ref.url));
+  }
+  assert.equal(a.textbookFor(a.BANK.find(q=>q.id===35)).section,'1.3');
+  assert.equal(a.textbookFor(a.BANK.find(q=>q.id===180)).section,'2.4');
+  assert.equal(a.textbookFor(a.BANK.find(q=>q.id===124)).section,'2.2');
+  const q=a.randomizeQuestion(a.BANK.find(q=>q.id===138));delete q.lesson;
+  a.setResults([detail(a,q,q.answer.slice(1))]);
+  assert.ok(a.notesHTML().includes(a.textbookFor(q).url));
 });

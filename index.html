@@ -129,6 +129,7 @@ dialog{border:1px solid #c5cdbd;border-radius:14px;color:var(--ink);background:#
 @media(max-width:760px){.shell{padding:0 18px 30px}.topbar{min-height:94px;gap:12px}.brand{font-size:18px;gap:10px;letter-spacing:3px}.brand-mark{width:40px;height:40px;font-size:23px}.brand-sub{font-size:6px;letter-spacing:1px}.header-controls{gap:12px}.text-control{font-size:10px}.hero{padding:36px 28px 24px;grid-template-columns:1fr;gap:28px}.hero h1{font-size:64px;margin:25px 0;letter-spacing:-2px}.hero p{max-width:420px}.hero-visual{max-width:390px;margin:0 auto;width:100%}.anatomy-art{max-height:340px}.specimen-caption{font-size:6px}.hero-footnote{font-size:8px}.data-strip{grid-template-columns:repeat(3,1fr);padding:23px 4px;gap:12px}.data-strip>div{display:block}.data-strip span{display:block;font-size:6px;margin-top:6px;letter-spacing:.8px}.data-strip .privacy-note{display:none}.sessions{padding-top:38px}.section-heading{align-items:flex-start}.section-heading h2{font-size:33px}.section-heading>p{font-size:10px;max-width:175px}.mode-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.mode{padding:20px 17px 15px}.mode strong{font-size:20px}.mode .mode-description{font-size:11px;min-height:55px}.mode .mode-bottom>span:first-child{font-size:6px;letter-spacing:.7px}.mode-top{margin-bottom:22px}.grid2{grid-template-columns:1fr;margin-top:32px}.lesson,.mastery{padding:26px}.qcard,.results{padding:22px}.qtext{font-size:25px}.progress-row{font-size:10px}.exam-head{padding:18px;top:5px}.navrow{flex-direction:row}.navrow .btn{width:auto}footer{margin:0 18px;flex-wrap:wrap;gap:15px}footer p{font-size:8px}}
 @media(max-width:420px){.brand-sub{display:none}.header-controls{gap:10px}.hero h1{font-size:54px}.hero .eyebrow{font-size:7px;letter-spacing:1.4px}.hero{padding:29px 22px 22px}.hero-cta{font-size:12px;padding:15px 17px;gap:18px}.section-heading>p{display:none}.mode{padding:18px 14px 14px}.mode strong{font-size:19px}.mode .mode-description{font-size:10px;min-height:64px}.mode .mode-bottom>span:first-child{font-size:6px;line-height:1.8;max-width:88px}.mode .mode-arrow{font-size:18px}.text-control{font-size:9px}.brand{font-size:16px}.brand-mark{width:35px;height:35px}.hero-footnote span{padding:0 4px}.qcard,.results{padding:17px}.qtext{font-size:23px}.scorecards{grid-template-columns:1fr}.scorecard .big{font-size:36px}.lesson-card{padding:14px}.toolbar .btn{font-size:11px}.lesson h2,.mastery h2{font-size:31px}}
 
+.textbook-link{display:flex;flex-direction:column;gap:5px;margin:18px 0 4px;padding:14px 16px;border:1px solid #c3cfb7;border-radius:6px;background:#edf1e5;color:#254a38;text-decoration:none;font-size:13px;font-weight:650;line-height:1.5;overflow-wrap:anywhere}.textbook-link:hover{background:#e1e9d7;border-color:#789369}.textbook-link:focus-visible{outline:3px solid #315e44;outline-offset:3px}.textbook-section{font-size:12px;font-weight:400}.textbook-window{font-size:10px;font-weight:400;color:#52674b}
 </style>
 </head>
 <body>
@@ -9272,6 +9273,77 @@ function lessonFor(q){
     correctIdea:q.explanation, explanation:q.explanation
   };
 }
+// Verified OpenStax A&P 2e section pages. Keep links independent of shuffled answers.
+const TEXTBOOK_SECTIONS = {
+  "1.1": {
+    "section": "1.1",
+    "title": "Overview of Anatomy and Physiology",
+    "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/1-1-overview-of-anatomy-and-physiology"
+  },
+  "1.2": {
+    "section": "1.2",
+    "title": "Structural Organization of the Human Body",
+    "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/1-2-structural-organization-of-the-human-body"
+  },
+  "1.3": {
+    "section": "1.3",
+    "title": "Functions of Human Life",
+    "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/1-3-functions-of-human-life"
+  },
+  "1.4": {
+    "section": "1.4",
+    "title": "Requirements for Human Life",
+    "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/1-4-requirements-for-human-life"
+  },
+  "1.5": {
+    "section": "1.5",
+    "title": "Homeostasis",
+    "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/1-5-homeostasis"
+  },
+  "1.6": {
+    "section": "1.6",
+    "title": "Anatomical Terminology",
+    "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/1-6-anatomical-terminology"
+  },
+  "1.7": {
+    "section": "1.7",
+    "title": "Medical Imaging",
+    "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/1-7-medical-imaging"
+  },
+  "2.1": {
+    "section": "2.1",
+    "title": "Elements and Atoms: The Building Blocks of Matter",
+    "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/2-1-elements-and-atoms-the-building-blocks-of-matter"
+  },
+  "2.2": {
+    "section": "2.2",
+    "title": "Chemical Bonds",
+    "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/2-2-chemical-bonds"
+  },
+  "2.3": {
+    "section": "2.3",
+    "title": "Chemical Reactions",
+    "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/2-3-chemical-reactions"
+  },
+  "2.4": {
+    "section": "2.4",
+    "title": "Inorganic Compounds Essential to Human Functioning",
+    "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/2-4-inorganic-compounds-essential-to-human-functioning"
+  },
+  "2.5": {
+    "section": "2.5",
+    "title": "Organic Compounds Essential to Human Functioning",
+    "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/2-5-organic-compounds-essential-to-human-functioning"
+  }
+};
+function textbookFor(q){
+  // Ionic charge and magnesium's electron loss are explained in Chemical Bonds.
+  const section=[124,125,126,127,130,131,132,133,134,135].includes(q.id)?'2.2':q.section;
+  return TEXTBOOK_SECTIONS[section]||null;
+}
+function textbookLinkHTML(ref){
+  return ref?`<a class="textbook-link" href="${escapeNote(ref.url)}" target="_blank" rel="noopener noreferrer"><span>Study more in OpenStax ↗</span><span class="textbook-section">${escapeNote(ref.section)} · ${escapeNote(ref.title)}</span><span class="textbook-window">Anatomy & Physiology 2e · Opens in a new tab</span></a>`:'';
+}
 function teachingNote(d){
   const q=d.q, user=d.user||[], correct=new Set(q.answer), chosen=new Set(user), lesson=lessonFor(q);
   const omitted=q.answer.filter(i=>!chosen.has(i)).map(i=>q.options[i]);
@@ -9280,9 +9352,9 @@ function teachingNote(d){
     ...omitted.map(text=>({text,kind:user.length?'Missed correct choice':'Correct choice to learn'})),
     ...incorrect.map(text=>({text,kind:'Incorrectly selected'}))
   ].map(item=>({...item,explanation:lesson.choiceFeedback?.[item.text]||q.explanation}));
-  const sections=q.type==='multi'&&feedback.length&&lesson.choiceLessons
+  const sections=(q.type==='multi'&&feedback.length&&lesson.choiceLessons
     ? feedback.map(item=>({title:item.kind+': '+item.text,...lesson.choiceLessons[item.text]}))
-    : [lesson];
+    : [lesson]).map(section=>({...section,textbook:textbookFor(q)}));
   let diagnosis;
   if(!user.length) diagnosis='This question was unanswered; there is no selected answer from which to infer a misconception.';
   else if(q.type==='multi') diagnosis=`${omitted.length} correct choice${omitted.length===1?'':'s'} missed; ${incorrect.length} incorrect choice${incorrect.length===1?'':'s'} selected. Review each statement independently.`;
@@ -9301,7 +9373,7 @@ function lessonSectionHTML(section,unanswered){
     ${field('Example',section.example)}
     ${section.mnemonic?`<p class="mnemonic"><b>Memory hook:</b> ${escapeNote(section.mnemonic)}</p>`:''}
     ${section.quickCheck?`<div class="quick-check"><h4>Quick check</h4><p>${escapeNote(section.quickCheck)}</p>
-      ${section.quickCheckAnswer?`<details><summary>Reveal answer</summary><p>${escapeNote(section.quickCheckAnswer)}</p></details>`:''}</div>`:''}
+      ${section.quickCheckAnswer?`<details><summary>Reveal answer</summary><p>${escapeNote(section.quickCheckAnswer)}</p></details>`:''}${textbookLinkHTML(section.textbook)}</div>`:textbookLinkHTML(section.textbook)}
   </div>`;
 }
 function teachingHTML(n){
@@ -9362,6 +9434,8 @@ function studyNotesText(){
         if(s[key]&&!(key==='misconception'&&n.unanswered))out+=`${title}: ${s[key]}\n`;
       }
     }
+    const refs=[...new Map(n.sections.filter(s=>s.textbook).map(s=>[s.textbook.url,s.textbook])).values()];
+    for(const ref of refs)out+=`Study more in OpenStax Anatomy & Physiology 2e: ${ref.section} — ${ref.title}\n${ref.url}\n`;
     out+='\n';
   }
   return out;
