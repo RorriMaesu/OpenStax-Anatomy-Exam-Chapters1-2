@@ -23,6 +23,8 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v7
+      - name: Check teaching and exam regressions
+        run: node --test tests/teaching.test.cjs
       - name: Configure Pages
         uses: actions/configure-pages@v6
       - name: Upload static site

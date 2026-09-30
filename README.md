@@ -47,7 +47,13 @@ After submission, the app accumulates concept credit and question counts in your
 
 Mistakes Only combines missed question IDs with questions from concepts below 85% historical accuracy. A fully correct later answer removes that question from the missed set. With no eligible history, the mode falls back to a weak-spot drill; a small eligible pool is supplemented with other questions to reach 20.
 
-The home screen shows up to ten tracked concepts, weakest first. Personalized Notes addresses each missed or partially correct question in the latest attempt: your selections, omitted correct choices, incorrect selections, the complete answer, a question-specific explanation, and a self-check. Movement and valence-stability questions include extra targeted examples and memory hooks; other questions use their own bank explanation. Downloaded notes contain the same feedback. “Practice These Weak Spots” starts a drill based on accumulated history, including that attempt.
+The home screen shows up to ten tracked concepts, weakest first. Personalized Notes addresses each missed or partially correct question in the latest attempt: actual selections, omitted correct choices, incorrect selections, and a concise diagnosis. All 239 questions include richer teaching metadata. Expand **Teach Me This** for the correct idea, possible misconception, plain-language explanation, example, useful memory hook, and a quick check with a revealable answer. Select-all feedback teaches the specific omitted or incorrectly selected statements. Downloaded notes include the full lessons even when the on-screen cards are collapsed. “Practice These Weak Spots” starts a drill based on accumulated history, including that attempt.
+
+## Learn from a missed answer
+
+Each missed question has a **Study This Concept** button. It opens the targeted lesson, clearly labeled broader concept notes, and up to three shuffled related questions from the same concept. The original question is excluded. This practice is unscored: it does not alter the completed exam, mastery statistics, or saved session. If no other questions exist for a concept, the quick check remains available.
+
+Lessons explain possible misconceptions without claiming to know a student's thoughts. For unanswered questions, the app teaches the correct idea without inventing a wrong selection. Feedback is authored locally and selected from the question and chosen answer texts; no AI service, account, or network request is involved. Older in-progress exams receive current lessons by question ID when resumed.
 
 ## Randomized exams, stable answer keys
 
@@ -77,7 +83,7 @@ Progress is specific to this browser profile and site origin. Clearing site data
 2. Select an answer—or all applicable answers—and navigate with Previous, Next, or the numbered grid.
 3. On the last question, select **Submit Exam**. The app asks for confirmation if questions remain unanswered.
 4. Compare strict score with concept accuracy. Read **Missed & Partial**, **Personalized Notes**, and **Review All**.
-5. Download notes and practice weak spots. Return home to see mastery or start another mode.
+5. Expand **Teach Me This**, try a quick check, or choose **Study This Concept** for related practice. Download the full notes and use weak-spot drills for another scored attempt.
 
 ## Run locally
 
@@ -101,9 +107,21 @@ Semantic HTML, responsive CSS, vanilla JavaScript, browser `localStorage`, and t
 ├── README.md                  # Project guide
 ├── docs/images/exam-trainer-home.png # Screenshot of the live home screen
 ├── LICENSE                    # MIT license for original software/code
+├── docs/teaching-system.md     # Lesson data guide and coverage review
+├── tests/                     # Built-in Node.js regression tests
 ├── .gitignore                 # Local/editor/generated file exclusions
 └── .github/workflows/pages.yml # Official GitHub Pages deployment workflow
 ```
+
+## Check changes
+
+The application requires no build or dependencies. With Node.js 22 or newer installed, run the regression suite:
+
+```sh
+node --test tests/teaching.test.cjs
+```
+
+The deployment workflow runs these checks before publishing. They verify that original questions and answer keys remain intact, shuffled answers retain their feedback, select-all diagnosis is precise, older saved questions receive lessons, and study practice excludes the original question. See [the teaching system guide](docs/teaching-system.md) for the metadata contract and content-review coverage.
 
 ## Source material
 
